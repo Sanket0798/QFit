@@ -1,6 +1,9 @@
 import { useParams } from 'react-router-dom';
+import CheckoutHero from '../components/sections/CheckoutHero';
 import MembershipApplicationForm from '../components/sections/MembershipApplicationForm';
 import PlanTable from '../components/shared/PlanTable';
+import PlanSummaryCard from '../components/shared/PlanSummaryCard';
+import WhyChooseCheckout from '../components/sections/WhyChooseCheckout';
 import { PlansCTA } from '../components/sections';
 import {
   QFIT_KAVACH_DETAILS,
@@ -26,17 +29,30 @@ const PlanCheckoutPage = () => {
 
   return (
     <div className="bg-white">
+      {/* Checkout Hero - Mobile Only */}
+      <CheckoutHero />
+
+      {/* Plan Summary Card - Mobile Only */}
+      <PlanSummaryCard planDetails={planDetails} />
+
       {/* Membership Application Form */}
       <MembershipApplicationForm 
         planName={planDetails.name}
         price={planDetails.price}
       />
 
-      {/* Plan Details Table */}
-      <PlanTable planDetails={planDetails} />
+      {/* Why Choose Section - Mobile Only */}
+      <WhyChooseCheckout />
 
-      {/* CTA Section */}
-      <PlansCTA />
+      {/* Plan Details Table - Desktop Only */}
+      <div className="hidden md:block">
+        <PlanTable planDetails={planDetails} />
+      </div>
+
+      {/* CTA Section - Desktop Only */}
+      <div className="hidden md:block">
+        <PlansCTA />
+      </div>
     </div>
   );
 };
