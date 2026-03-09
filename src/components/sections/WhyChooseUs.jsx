@@ -23,7 +23,7 @@ const WhyChooseUs = () => {
   ];
 
   return (
-    <section className="relative py-16 px-4 bg-gradient-to-b from-[#E8EFFF]/30 via-[#E8EFFF]/50 to-white">
+    <section className="relative py-16 px-4 ">
       {/* Faded overlay at top */}
       {/* <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#E5F4FF] to-transparent pointer-events-none" /> */}
 

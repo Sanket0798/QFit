@@ -1,37 +1,43 @@
-import { RightArrowIcon } from '../common/SvgIcons';
+import { RightArrowIcon, RightUpArrowIcon } from '../common/SvgIcons';
+import { Button } from '../ui';
+
 
 const AboutUs = () => {
   return (
-    <section className="py-20 px-4 bg-gradient-to-b from-white to-gray-50">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <section className="relative pt-[74px] px-4 bg-gradient-to-b from-[#E8EFFF]/30 via-[#E8EFFF]/50 to-white">
+      {/* Faded overlay at bottom */}
+      {/* <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-transparent to-[#E5F4FF] pointer-events-none" /> */}
+
+      <div className="relative max-w-[1224px] mx-auto text-center">
+        <h1 className='font-normal text-xl leading-[26px] text-[#4B5768] mb-[14px]'>About Us</h1>
+        <h2 className='font-bold text-[40px] leading-[48px] text-custom-dark-text px-52'>Providing <span className='text-custom-purple'>Exceptional Healthcare</span> With A Focus On Members.</h2>
+        <div className="flex items-center justify-between gap-[94px] mt-10">
           {/* Left Content */}
-          <div className="space-y-6">
-            <p className="text-gray-500 text-lg font-medium">About Us</p>
-            
-            <h2 className="text-4xl md:text-5xl font-bold leading-tight">
-              Providing <span className="text-purple-600">Exceptional Healthcare</span>{' '}
-              <span className="text-gray-900">With A Focus On Members.</span>
-            </h2>
-            
-            <p className="text-gray-700 text-lg leading-relaxed">
-              We Make Quality Care Accessible And Affordable. Our Care Model Blends In-Person 
-              Expertise With Digital Convenience So You Can Book, Consult And Track Your Health 
+          <div className="text-start max-w-[630px]">
+            <p className="font-medium text-2xl leading-[34px] text-custom-dark-text text-start">
+              We Make Quality Care Accessible And Affordable. Our Care Model Blends In-Person
+              Expertise With Digital Convenience So You Can Book, Consult And Track Your Health
               Anywhere. From Preventive Wellness To Diagnostics And Ongoing Guidance.
             </p>
-            
-            <p className="text-gray-500 text-base">
+
+            <p className="font-normal text-[17px] leading-[23px] text-[#4B5768] text-start mt-3">
               Our Team Focuses On Keeping You Healthy, Not Just Treating Illness.
             </p>
-            
-            <button className="inline-flex items-center gap-2 px-8 py-3.5 bg-purple-600 text-white rounded-full text-base font-medium hover:bg-purple-700 transition-colors shadow-lg hover:shadow-xl">
+
+            <Button
+              // ref={buttonRef}
+              variant="custom"
+              className="text-lg !font-normal leading-[20px] text-white gap-5 md:gap-2 rounded-full bg-custom-purple mt-10 w-full md:w-[190px] md:mt-[76px]"
+
+            >
+
               Learn More
-              <RightArrowIcon color="#ffffff" />
-            </button>
+              <RightArrowIcon color='white' />
+            </Button>
           </div>
 
           {/* Right Image */}
-          <div className="relative">
+          {/* <div className="relative">
             <div className="relative bg-gradient-to-br from-purple-100 to-blue-100 rounded-full w-full aspect-square flex items-center justify-center overflow-hidden">
               <img
                 src="/assets/images/Workers.png"
@@ -39,7 +45,12 @@ const AboutUs = () => {
                 className="w-full h-full object-contain"
               />
             </div>
-          </div>
+          </div> */}
+          <img
+            src="/assets/images/Doctors.svg"
+            alt="Healthcare Team"
+            className="object-contain"
+          />
         </div>
       </div>
     </section>

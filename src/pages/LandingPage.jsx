@@ -20,7 +20,9 @@ const LandingPage = () => {
         <WhyChooseUs />
       </section>
 
-      <PlansCTA />
+      <div className='mb-6'>
+        <PlansCTA />
+      </div>
     </>
   )
 }
