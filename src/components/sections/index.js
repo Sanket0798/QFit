@@ -1,9 +1,7 @@
 export { default as HeroSection } from './HeroSection';
-export { default as QFitPlansSection } from './QFitPlansSection';
-export { default as WhyChooseSection } from './WhyChooseSection';
-export { default as AboutSection } from './AboutSection';
-export { default as TestimonialsSection } from './TestimonialsSection';
-export { default as CTASection } from './CTASection';
+export { default as HeroWithPlansSlider } from './HeroWithPlansSlider';
+export { default as AboutUs } from './AboutUs';
+export { default as WhyChooseUs } from './WhyChooseUs';
 
 // Plans page sections
 export { default as PlansHero } from './PlansHero';

@@ -1,38 +1,26 @@
 import {
-  HeroSection,
-  QFitPlansSection,
-  WhyChooseSection,
-  AboutSection,
-  TestimonialsSection,
-  CTASection,
+  HeroWithPlansSlider,
+  AboutUs,
+  WhyChooseUs,
+  PlansCTA,
 } from '../components/sections';
 
 const LandingPage = () => {
   return (
     <>
       <section id="hero">
-        <HeroSection />
+        <HeroWithPlansSlider />
       </section>
 
-      <section id="qfit-plans">
-        <QFitPlansSection />
+      <section id="about-us">
+        <AboutUs />
       </section>
 
-      <section id="why-choose">
-        <WhyChooseSection />
+      <section id="why-choose-us">
+        <WhyChooseUs />
       </section>
 
-      <section id="about">
-        <AboutSection />
-      </section>
-
-      <section id="testimonials">
-        <TestimonialsSection />
-      </section>
-
-      <section id="cta">
-        <CTASection />
-      </section>  
+      <PlansCTA />
     </>
   )
 }
