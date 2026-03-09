@@ -14,11 +14,11 @@ const HeroWithPlansSlider = () => {
   const buttonRef = useRef(null);
   const imageRef = useRef(null);
   const sliderRef = useRef(null);
-  
+
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
-  
+
   const planColors = {
     'QFit Kavach': 'bg-pink-50',
     'QFit Super': 'bg-cyan-50',
@@ -48,7 +48,7 @@ const HeroWithPlansSlider = () => {
   // Auto-play slider
   useEffect(() => {
     if (!isAutoPlaying) return;
-    
+
     const interval = setInterval(() => {
       setCurrentSlide((prev) => {
         const next = (prev + 1) % QFIT_PLANS_DATA.length;
@@ -128,7 +128,7 @@ const HeroWithPlansSlider = () => {
   const handleDotClick = (index) => {
     setCurrentSlide(index);
     setIsAutoPlaying(false);
-    
+
     // Scroll to the selected slide
     if (sliderRef.current) {
       const cardWidth = isMobile ? 296 : 344;
@@ -137,12 +137,12 @@ const HeroWithPlansSlider = () => {
         behavior: 'smooth'
       });
     }
-    
+
     setTimeout(() => setIsAutoPlaying(true), 5000);
   };
 
   return (
-    <section 
+    <section
       ref={sectionRef}
       className="relative bg-[#E5F4FF] overflow-hidden"
       style={{
@@ -150,21 +150,23 @@ const HeroWithPlansSlider = () => {
         backgroundSize: 'auto, cover',
         backgroundPosition: 'center, center',
         backgroundRepeat: 'repeat, no-repeat',
+        marginTop: '-80px',
+        paddingTop: '100px',
       }}
     >
       <div className="container mx-auto px-4 py-12 md:py-16">
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center mb-12">
           {/* Left Content */}
           <div className="space-y-4 md:space-y-6">
-            <div 
+            <div
               ref={badgeRef}
               className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm"
             >
               <img src="/assets/icons/Heart.svg" alt="Heart" className="w-6 h-6" />
               <span className="text-sm md:text-base font-medium text-[#0072F2]">Your Health, Our Priority</span>
             </div>
-            
-            <h1 
+
+            <h1
               ref={titleRef}
               className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight"
             >
@@ -172,16 +174,16 @@ const HeroWithPlansSlider = () => {
               <br />
               <span className="text-custom-dark-text">OUR PRIORITY</span>
             </h1>
-            
-            <p 
+
+            <p
               ref={descRef}
               className="text-custom-dark-text text-base md:text-lg max-w-lg leading-relaxed"
             >
               We provide comprehensive healthcare services with a personal touch, ensuring you receive the best care possible.
             </p>
-            
+
             <div ref={buttonRef}>
-              <Button 
+              <Button
                 variant="custom"
                 className="bg-custom-purple text-white font-bold text-base md:text-lg py-3 px-6 md:px-8 rounded-full hover:bg-purple-700 transition-colors shadow-[5px_5px_5px_0px_rgba(0,0,0,0.25)]"
                 onClick={() => navigate('/plans')}
@@ -192,13 +194,13 @@ const HeroWithPlansSlider = () => {
           </div>
 
           {/* Right Illustration */}
-          <div 
+          <div
             ref={imageRef}
             className="relative flex justify-center items-center"
           >
-            <img 
-              src="/assets/images/HeroImage.png" 
-              alt="Healthcare Team" 
+            <img
+              src="/assets/images/HeroImage.png"
+              alt="Healthcare Team"
               className="w-full h-auto object-contain max-w-md md:max-w-lg"
             />
           </div>
@@ -213,10 +215,10 @@ const HeroWithPlansSlider = () => {
 
           {/* Slider Container */}
           <div className="relative overflow-hidden">
-            <div 
+            <div
               ref={sliderRef}
               className="flex gap-4 md:gap-6 overflow-x-auto scrollbar-hide scroll-smooth px-4"
-              style={{ 
+              style={{
                 scrollbarWidth: 'none',
                 msOverflowStyle: 'none',
               }}
@@ -226,9 +228,8 @@ const HeroWithPlansSlider = () => {
               {QFIT_PLANS_DATA.map((plan, index) => (
                 <div
                   key={plan.name}
-                  className={`flex-shrink-0 w-[280px] md:w-[320px] ${planColors[plan.name]} rounded-3xl p-6 shadow-lg transition-all duration-300 ${
-                    index === currentSlide ? 'scale-105 ring-4 ring-purple-400' : 'scale-100'
-                  }`}
+                  className={`flex-shrink-0 w-[280px] md:w-[320px] ${planColors[plan.name]} rounded-3xl p-6 shadow-lg transition-all duration-300 ${index === currentSlide ? 'scale-105 ring-4 ring-purple-400' : 'scale-100'
+                    }`}
                 >
                   <div className="text-center mb-6">
                     <h3 className="text-2xl md:text-3xl font-bold text-custom-dark-text mb-2">
@@ -240,8 +241,8 @@ const HeroWithPlansSlider = () => {
                   </div>
 
                   <div className="flex justify-center mb-6">
-                    <img 
-                      src={plan.icon} 
+                    <img
+                      src={plan.icon}
                       alt={plan.name}
                       className="w-24 h-24 md:w-32 md:h-32 object-contain"
                     />
@@ -264,11 +265,10 @@ const HeroWithPlansSlider = () => {
                 <button
                   key={index}
                   onClick={() => handleDotClick(index)}
-                  className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                    index === currentSlide 
-                      ? 'bg-custom-purple w-8' 
-                      : 'bg-gray-400'
-                  }`}
+                  className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${index === currentSlide
+                    ? 'bg-custom-purple w-8'
+                    : 'bg-gray-400'
+                    }`}
                   aria-label={`Go to slide ${index + 1}`}
                 />
               ))}
@@ -282,18 +282,18 @@ const HeroWithPlansSlider = () => {
             <span className="text-custom-dark-text">Why Choose </span>
             <span className="text-custom-purple">RupeeQ?</span>
           </h3>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
             <div className="flex flex-col items-center gap-3 bg-cyan-50 rounded-2xl p-6">
               <img src="/assets/icons/Doctor.svg" alt="Doctors" className="w-12 h-12" />
               <p className="font-semibold text-custom-dark-text">Good Doctors Team</p>
             </div>
-            
+
             <div className="flex flex-col items-center gap-3 bg-purple-50 rounded-2xl p-6">
               <img src="/assets/icons/Care.svg" alt="Care" className="w-12 h-12" />
               <p className="font-semibold text-custom-dark-text">Personalized Care</p>
             </div>
-            
+
             <div className="flex flex-col items-center gap-3 bg-blue-50 rounded-2xl p-6">
               <img src="/assets/icons/HandShake.svg" alt="Support" className="w-12 h-12" />
               <p className="font-semibold text-custom-dark-text">Claims Concierge support</p>
