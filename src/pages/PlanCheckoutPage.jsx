@@ -39,6 +39,7 @@ const PlanCheckoutPage = () => {
       <MembershipApplicationForm 
         planName={planDetails.name}
         price={planDetails.price}
+        monthlyPrice={planDetails.monthlyPrice}
       />
 
       {/* Why Choose Section - Mobile Only */}

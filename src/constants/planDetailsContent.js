@@ -6,6 +6,7 @@ export const QFIT_KAVACH_DETAILS = {
   name: 'QFit Kavach',
   subtitle: 'Know Your Plan',
   price: '₹1699',
+  monthlyPrice: '₹399',
   icon: '/assets/images/family/family.svg',
   eligibility: [
     { label: 'Age Limit', value: 'No Limit (For Wellness) & 18-65 Yrs (For Insurance)' },
@@ -51,6 +52,7 @@ export const QFIT_SUPER_DETAILS = {
   name: 'QFit Super',
   subtitle: 'Know Your Plan',
   price: '₹2,999',
+  monthlyPrice: '₹599',
   icon: '/assets/images/family/family.svg',
   eligibility: [
     { label: 'Age Limit', value: 'No Limit (For Wellness) & 18-65 Yrs (For Insurance)' },
@@ -99,6 +101,7 @@ export const QFIT_LITE_DETAILS = {
   name: 'QFit Lite',
   subtitle: 'Know Your Plan',
   price: '₹7199',
+  monthlyPrice: '₹799',
   icon: '/assets/images/family/JointFamily.svg',
   eligibility: [
     { label: 'Age Limit', value: 'No Limit (For Wellness) & 18-65 Yrs (For Insurance)' },
@@ -154,6 +157,7 @@ export const QFIT_ESSENTIAL_DETAILS = {
   name: 'QFit Essential',
   subtitle: 'Know Your Plan',
   price: '₹15,398',
+  monthlyPrice: '₹999',
   icon: '/assets/images/family/JointFamily.svg',
   eligibility: [
     { label: 'Age Limit', value: 'No Limit (For Wellness) & 18-65 Yrs (For Insurance)' },
@@ -214,6 +218,7 @@ export const QFIT_MAX_DETAILS = {
   name: 'QFit Max',
   subtitle: 'Know Your Plan',
   price: '₹20,398',
+  monthlyPrice: '₹1,299',
   icon: '/assets/images/family/JointFamily.svg',
   eligibility: [
     { label: 'Age Limit', value: 'No Limit (For Wellness) & 18-65 Yrs (For Insurance)' },

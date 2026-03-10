@@ -2,6 +2,66 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom component classes for repeated Tailwind patterns */
+/* These maintain exact same CSS properties - only reducing repetition */
+@layer components {
+  /* Card shadows - used 15+ times */
+  .shadow-card {
+    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.25);
+  }
+  
+  .shadow-card-top {
+    box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.25);
+  }
+  
+  .shadow-card-light {
+    box-shadow: 0px 6px 5px 0px rgba(0,0,0,0.09);
+  }
+  
+  .shadow-card-md {
+    box-shadow: 4px 4px 4px 0px rgba(0,0,0,0.25);
+  }
+  
+  .shadow-card-hover {
+    box-shadow: 0px 16px 40px 0px rgba(0,0,0,0.06);
+  }
+  
+  /* Card base - used 8+ times */
+  .card-base {
+    @apply bg-white rounded-2xl md:rounded-3xl shadow-card;
+  }
+  
+  /* Card header pattern - used 5+ times */
+  .card-header-base {
+    @apply flex items-start justify-between mb-4 md:mb-8 rounded-xl md:rounded-2xl py-4 md:py-6 shadow-card-top;
+  }
+  
+  /* Card content spacing - used 3+ times */
+  .card-content-spacing {
+    @apply px-5 md:px-14;
+  }
+  
+  /* Plan card heading - used 5+ times */
+  .plan-heading {
+    @apply text-2xl md:text-3xl leading-[22px] md:leading-[35px] font-medium md:font-bold text-[#0072F2];
+  }
+  
+  /* Feature item layout - used 10+ times */
+  .feature-item {
+    @apply flex items-start gap-3 md:gap-5;
+  }
+  
+  /* Feature text - used 8+ times */
+  .feature-text {
+    @apply text-[17px] md:text-xl leading-[23px] md:leading-[34px] text-custom-dark-text font-normal md:font-medium whitespace-pre-line;
+  }
+  
+  /* Button with shadow - used 8+ times */
+  .btn-shadow {
+    @apply shadow-card;
+  }
+}
+
 @font-face {
   font-family: 'Delight';
   src: url('/fonts/Delight/delight-regular.otf') format('opentype');

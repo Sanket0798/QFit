@@ -1,11 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { Button } from '../ui';
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -84,28 +83,14 @@ const Navbar = () => {
     }
   };
 
-  // Handle login button click - route to appropriate login page based on current page
-  const handleLoginClick = () => {
-    const currentPath = location.pathname;
-    
-    // Map each page to its corresponding login page
-    const loginRoutes = {
-      '/': '/login/home',
-    };
-    
-    // Navigate to the appropriate login page, default to home login
-    const loginPath = loginRoutes[currentPath] || '/login/home';
-    navigate(loginPath);
-  };
-
   return (
     <nav className={`bg-white sticky top-0 z-50 rounded-3xl transition-shadow duration-300 max-w-full mx-3 mt-3 ${scrolled ? 'shadow-md' : 'shadow-sm'}`}>
-      <div className="flex justify-between items-center h-[72px] px-3 lg:pl-[88px] lg:pr-[62px]">
+      <div className="flex justify-between items-center h-[60px] md:h-[72px] px-7 md:px-3 lg:pl-[88px] lg:pr-[62px]">
           {/* Logo */}
           <div className="flex-shrink-0">
             <button
               onClick={() => navigate('/')}
-              className="flex items-center hover:opacity-80 transition-opacity cursor-pointer"
+              className="flex w-[122px] md:w-full items-center hover:opacity-80 transition-opacity cursor-pointer"
             >
               <img
                 src="/assets/logos/main-logo.svg"
@@ -140,7 +125,7 @@ const Navbar = () => {
                       
                       {/* Dropdown Menu */}
                       {openDropdown === link.name && (
-                        <div className="absolute top-full left-0 mt-2 w-56 bg-white rounded-2xl shadow-lg border border-gray-100 py-2 z-50 animate-slide-up">
+                        <div className="absolute top-full -left-36 mt-2 w-56 bg-white rounded-2xl shadow-lg border border-gray-100 py-2 z-50 animate-slide-up">
                           {link.dropdownItems.map((item) => (
                             <button
                               key={item.path || item.id}
@@ -198,7 +183,7 @@ const Navbar = () => {
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <div className="md:hidden bg-white border-t animate-slide-up">
+        <div className="md:hidden absolute top-full left-0 right-0 bg-white border-t animate-slide-up rounded-2xl shadow-lg z-40">
           <div className="px-2 pt-2 pb-3 space-y-1">
             {navLinks.map((link) => (
               <div key={link.name}>
@@ -218,9 +203,22 @@ const Navbar = () => {
                       <div className="pl-4 mt-1 space-y-1">
                         {link.dropdownItems.map((item) => (
                           <button
-                            key={item.path}
+                            key={item.path || item.id}
                             onClick={() => {
-                              navigate(item.path);
+                              if (item.path) {
+                                navigate(item.path);
+                              } else if (item.id) {
+                                const element = document.getElementById(item.id);
+                                if (element) {
+                                  const offset = 80;
+                                  const elementPosition = element.getBoundingClientRect().top;
+                                  const offsetPosition = elementPosition + window.pageYOffset - offset;
+                                  window.scrollTo({
+                                    top: offsetPosition,
+                                    behavior: 'smooth'
+                                  });
+                                }
+                              }
                               setIsOpen(false);
                               setOpenDropdown(null);
                             }}

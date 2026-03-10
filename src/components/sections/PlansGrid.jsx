@@ -48,7 +48,7 @@ const PlansGrid = () => {
         <div
           key={index}
           ref={el => cardsRef.current[index] = el}
-          className="bg-white rounded-2xl md:rounded-3xl h-auto shadow-[5px_5px_5px_0px_rgba(0,0,0,0.25)] transition-shadow relative flex flex-col"
+          className="card-base h-auto transition-shadow relative flex flex-col"
         >
           {plan.badge && (
             <div className="absolute -top-2 md:-top-3 right-4 md:right-6 bg-purple-600 text-white px-3 md:px-4 py-0.5 md:py-1 rounded-full text-xs md:text-sm font-semibold">
@@ -57,9 +57,9 @@ const PlansGrid = () => {
           )}
 
           {/* Plan Header */}
-          <div className={`flex items-start justify-between mb-4 md:mb-8 ${headerBgColors[index]} rounded-xl md:rounded-2xl py-4 md:py-6 pr-4 md:pr-[33px] pl-5 md:pl-[41px] shadow-[0px_5px_5px_0px_rgba(0,0,0,0.25)]`}>
+          <div className={`card-header-base ${headerBgColors[index]} pr-4 md:pr-[33px] pl-5 md:pl-[41px]`}>
             <div className="flex items-start gap-4 md:gap-20">
-              <h3 className="text-2xl md:text-3xl leading-[22px] md:leading-[35px] font-medium md:font-bold text-[#0072F2]">
+              <h3 className="plan-heading">
                 {plan.name}
               </h3>
               <img
@@ -74,9 +74,9 @@ const PlansGrid = () => {
           </div>
 
           {/* Features List */}
-          <div className="space-y-[14px] md:space-y-5 mb-4 md:mb-[34px] px-5 md:px-14">
+          <div className="space-y-[14px] md:space-y-5 mb-4 md:mb-[34px] card-content-spacing">
             {plan.features.slice(0, 11).map((feature, idx) => (
-              <div key={idx} className="flex items-start gap-3 md:gap-5">
+              <div key={idx} className="feature-item">
                 <div className="flex-shrink-0">
                   {idx === 0 ? (
                     <img
@@ -98,7 +98,7 @@ const PlansGrid = () => {
                     />
                   )}
                 </div>
-                <p className="text-[17px] md:text-xl leading-[23px] md:leading-[34px] text-custom-dark-text font-normal md:font-medium whitespace-pre-line">
+                <p className="feature-text">
                   {feature.text}
                 </p>
 
@@ -109,7 +109,7 @@ const PlansGrid = () => {
           {/* View More Link */}
           <a
             href="#"
-            className="text-[#0072F2] hover:underline text-base md:text-xl leading-[20px] md:leading-[26px] font-normal inline-block px-5 md:px-14"
+            className="text-[#0072F2] hover:underline text-base md:text-xl leading-[20px] md:leading-[26px] font-normal inline-block card-content-spacing"
             onClick={(e) => {
               e.preventDefault();
               const planRoutes = {
@@ -126,7 +126,7 @@ const PlansGrid = () => {
           </a>
 
           {/* Buy Now Button */}
-          <div className="px-5 md:px-14 pb-6 md:pb-10 mt-6 md:mt-14">
+          <div className="card-content-spacing pb-6 md:pb-10 mt-6 md:mt-14">
             <Button
               variant="primary"
               className="text-base md:text-lg font-bold leading-[20px] md:leading-[22px] gap-2 rounded-full w-full md:w-auto"

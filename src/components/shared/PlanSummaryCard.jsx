@@ -60,9 +60,9 @@ const PlanSummaryCard = ({ planDetails }) => {
   const headerBgColor = headerBgColors[planDetails.name] || 'bg-[#CCF9FF]/50';
 
   return (
-    <div ref={cardRef} className="md:hidden bg-white rounded-2xl shadow-[5px_5px_5px_0px_rgba(0,0,0,0.25)] mx-4 mb-6">
+    <div ref={cardRef} className="md:hidden card-base mx-4 mb-6">
       {/* Plan Header */}
-      <div ref={headerRef} className={`flex items-start justify-between mb-4 ${headerBgColor} rounded-xl py-4 pr-4 pl-5 shadow-[0px_5px_5px_0px_rgba(0,0,0,0.25)]`}>
+      <div ref={headerRef} className={`card-header-base ${headerBgColor} pr-4 pl-5`}>
         <div className="flex items-start gap-4">
           <h3 className="text-2xl leading-[22px] font-medium text-[#0072F2]">
             {planDetails.name}
@@ -81,7 +81,7 @@ const PlanSummaryCard = ({ planDetails }) => {
       {/* Features List - Show first 7 features */}
       <div className="space-y-[14px] mb-4 px-5">
         {planDetails.eligibility.slice(0, 2).map((item, idx) => (
-          <div key={`eligibility-${idx}`} ref={el => featuresRef.current[idx] = el} className="flex items-start gap-3">
+          <div key={`eligibility-${idx}`} ref={el => featuresRef.current[idx] = el} className="feature-item">
             <div className="flex-shrink-0">
               {idx === 0 ? (
                 <img
@@ -104,7 +104,7 @@ const PlanSummaryCard = ({ planDetails }) => {
         ))}
 
         {planDetails.wellness.filter(item => !item.highlight).slice(0, 4).map((item, idx) => (
-          <div key={`wellness-${idx}`} ref={el => featuresRef.current[idx + 2] = el} className="flex items-start gap-3">
+          <div key={`wellness-${idx}`} ref={el => featuresRef.current[idx + 2] = el} className="feature-item">
             <div className="flex-shrink-0">
               <img
                 src="/assets/icons/Checked.svg"
@@ -119,7 +119,7 @@ const PlanSummaryCard = ({ planDetails }) => {
         ))}
 
         {planDetails.insurance.slice(0, 1).map((item, idx) => (
-          <div key={`insurance-${idx}`} ref={el => featuresRef.current[idx + 6] = el} className="flex items-start gap-3">
+          <div key={`insurance-${idx}`} ref={el => featuresRef.current[idx + 6] = el} className="feature-item">
             <div className="flex-shrink-0">
               <img
                 src="/assets/icons/Checked.svg"

@@ -1,1 +1,2 @@
-// Export all hooks from here
+export { useScrollPosition } from './useScrollPosition'
+export { useScrollAnimation, useFadeInUp, useStaggerAnimation, useScaleAnimation } from './useAnimation'

@@ -122,7 +122,7 @@ const PlanDetailsTable = ({ planDetails }) => {
 
           {/* Plan Icon and Price */}
           <div className="flex items-center justify-center gap-6 mt-6">
-            <div ref={desktopCardRef} className="flex items-center justify-center gap-10 bg-white rounded-3xl shadow-[5px_5px_5px_0px_rgba(0,0,0,0.25)] w-[356px] h-[94px]">
+            <div ref={desktopCardRef} className="flex items-center justify-center gap-10 bg-white rounded-3xl shadow-card w-[356px] h-[94px]">
               <img src={icon} alt={name} className="object-contain relative top-4" />
               <div className="bg-custom-purple font-bold text-3xl leading-[35px] text-white rounded-full py-[6.5px] px-6">
                 {price}
@@ -154,7 +154,7 @@ const PlanDetailsTable = ({ planDetails }) => {
           </div>
         </div>
 
-        <div ref={mobileHeaderRef} className='w-full text-center py-[18px] font-semibold text-2xl leading-[30px] text-custom-purple mt-9 bg-[#CCF9FF] rounded-24 shadow-[5px_5px_5px_0px_rgba(0,0,0,0.25)]'>
+        <div ref={mobileHeaderRef} className='w-full text-center py-[18px] font-semibold text-2xl leading-[30px] text-custom-purple mt-9 bg-[#CCF9FF] rounded-24 shadow-card'>
           Comprehensive Health
         </div>
       </section>
@@ -167,7 +167,7 @@ const PlanDetailsTable = ({ planDetails }) => {
         <Button
           ref={buttonRef}
           variant="custom"
-          className='font-bold shadow-[5px_5px_5px_0px_rgba(0,0,0,0.25)] text-lg md:text-3xl leading-[22px] md:leading-[35px] py-2 md:py-[6.5px] px-4 md:px-6 w-full md:w-[174px] bg-custom-purple text-white'
+          className='font-bold btn-shadow text-lg md:text-3xl leading-[22px] md:leading-[35px] py-2 md:py-[6.5px] px-4 md:px-6 w-full md:w-[174px] bg-custom-purple text-white'
           onClick={() => {
             const planRoutes = {
               'QFit Kavach': '/checkout/qfit-kavach',

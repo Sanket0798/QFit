@@ -111,7 +111,7 @@ const HeroSection = () => {
             <div ref={buttonRef}>
               <Button 
                 variant="custom"
-                className="bg-custom-purple text-white font-bold text-base md:text-lg py-3 px-6 md:px-8 rounded-full hover:bg-purple-700 transition-colors shadow-[5px_5px_5px_0px_rgba(0,0,0,0.25)]"
+                className="bg-custom-purple text-white font-bold text-base md:text-lg py-3 px-6 md:px-8 rounded-full hover:bg-purple-700 transition-colors shadow-card"
               >
                 Explore Wellness Plans
               </Button>
@@ -155,3 +155,4 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+

@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { Button } from '../ui';
 
-const MembershipApplicationForm = ({ planName, price }) => {
+const MembershipApplicationForm = ({ planName, price, monthlyPrice }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const workersImageRef = useRef(null);
@@ -43,7 +43,7 @@ const MembershipApplicationForm = ({ planName, price }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle final form submission
-    console.log('Form submitted:', formData);
+    // TODO: Integrate with backend API when ready
     setShowSuccessModal(true);
   };
 
@@ -96,20 +96,27 @@ const MembershipApplicationForm = ({ planName, price }) => {
                 </p>
               </div>
 
-              <div className="bg-[#ECE4FF] rounded-24 shadow-[5px_5px_5px_0px_rgba(0,0,0,0.25)] py-3 md:py-4 px-8 md:px-16 mx-auto md:mx-0 w-fit text-center">
+              <div className="bg-[#ECE4FF] rounded-24 shadow-card py-3 md:py-4 px-8 md:px-16 mx-auto md:mx-0 w-fit text-center">
                 <div className="text-2xl md:text-3xl font-bold text-custom-purple">
                   {price}
+                </div>
+              </div>
+
+              {/* Starting From Badge - Desktop Only */}
+              <div className="hidden md:block mt-6">
+                <div className="bg-custom-purple text-white font-semibold text-base leading-[20px] py-3 px-8 rounded-full shadow-card inline-block">
+                  Starting From {monthlyPrice}/Month
                 </div>
               </div>
             </div>
 
             {/* Right Side - Form */}
             <div className='space-y-6 md:space-y-[54px] w-full md:w-auto'>
-              <div className="bg-white rounded-2xl md:rounded-24 md:p-8 w-full md:w-[714px] my-2 md:my-0 shadow-[5px_5px_5px_0px_rgba(0,0,0,0.25)]">
+              <div className="bg-white rounded-2xl md:rounded-24 md:p-8 w-full md:w-[714px] my-2 md:my-0 shadow-card">
                 <h2 className="hidden md:block text-xl md:text-3xl font-bold leading-[26px] md:leading-[35px] text-[#0072F2] mb-5 md:mb-[30px]">
                   Membership Application
                 </h2>
-                <h2 className='md:hidden h-[65px] shadow-[5px_5px_5px_0px_rgba(0,0,0,0.25)] rounded-24 bg-[#E0D4FF] flex items-center justify-center font-bold text-3xl leading-[35px] text-[#0072F2] mb-10'>
+                <h2 className='md:hidden h-[65px] shadow-card rounded-24 bg-[#E0D4FF] flex items-center justify-center font-bold text-3xl leading-[35px] text-[#0072F2] mb-10'>
                   Membership Application
                 </h2>
 
@@ -223,7 +230,7 @@ const MembershipApplicationForm = ({ planName, price }) => {
                       <Button
                         type="submit"
                         variant="custom"
-                        className="bg-custom-purple text-white font-bold text-base md:text-lg py-2 md:py-[9px] px-5 md:px-[22px] rounded-full hover:bg-purple-700 transition-colors shadow-[5px_5px_5px_0px_rgba(0,0,0,0.25)] w-full md:w-auto"
+                        className="bg-custom-purple text-white font-bold text-base md:text-lg py-2 md:py-[9px] px-5 md:px-[22px] rounded-full hover:bg-purple-700 transition-colors shadow-card w-full md:w-auto"
                       >
                         Next
                       </Button>
@@ -268,7 +275,7 @@ const MembershipApplicationForm = ({ planName, price }) => {
                     </div>
 
                     {/* Nominee Details Section */}
-                    <div className="bg-[#FFE8E8] rounded-2xl md:rounded-3xl p-4 md:p-6 mb-6">
+                    <div className="card-base p-4 md:p-6 mb-6">
                       <h3 className="text-lg md:text-2xl font-bold text-custom-dark-text mb-0">
                         Nominee Details
                       </h3>
@@ -356,14 +363,14 @@ const MembershipApplicationForm = ({ planName, price }) => {
                         type="button"
                         variant="custom"
                         onClick={handleBack}
-                        className="bg-gray-300 text-custom-dark-text font-bold text-base md:text-lg py-2 md:py-[9px] px-5 md:px-[22px] rounded-full hover:bg-gray-400 transition-colors shadow-[5px_5px_5px_0px_rgba(0,0,0,0.25)] w-full md:w-auto"
+                        className="bg-gray-300 text-custom-dark-text font-bold text-base md:text-lg py-2 md:py-[9px] px-5 md:px-[22px] rounded-full hover:bg-gray-400 transition-colors shadow-card w-full md:w-auto"
                       >
                         Back
                       </Button>
                       <Button
                         type="submit"
                         variant="custom"
-                        className="bg-custom-purple text-white font-bold text-base md:text-lg py-2 md:py-[9px] px-5 md:px-[22px] rounded-full hover:bg-purple-700 transition-colors shadow-[5px_5px_5px_0px_rgba(0,0,0,0.25)] w-full md:w-auto"
+                        className="bg-custom-purple text-white font-bold text-base md:text-lg py-2 md:py-[9px] px-5 md:px-[22px] rounded-full hover:bg-purple-700 transition-colors shadow-card w-full md:w-auto"
                       >
                         Submit
                       </Button>
@@ -373,7 +380,7 @@ const MembershipApplicationForm = ({ planName, price }) => {
               </div>
 
               {/* Credit Score Analysis - Desktop Only */}
-              <div className="hidden md:flex bg-[#ECE4FF] rounded-3xl p-7 items-center justify-between gap-0 shadow-[5px_5px_5px_0px_rgba(0,0,0,0.25)]">
+              <div className="hidden md:flex bg-[#ECE4FF] rounded-3xl p-7 items-center justify-between gap-0 shadow-card">
                 <h3 className="text-3xl leading-[35px] font-bold text-[#0072F2]">Credit Score</h3>
                 <span className="text-2xl leading-[34px] font-medium text-[#0072F2]">Analysis</span>
               </div>
@@ -386,7 +393,7 @@ const MembershipApplicationForm = ({ planName, price }) => {
 
       {/* Bottom Features Section - Desktop Only */}
       <div className="hidden md:block mt-[66px] pb-9 mx-3">
-        <div className="bg-[#DACCFD]/70 rounded-b-3xl shadow-[5px_5px_5px_0px_rgba(0,0,0,0.25)] p-2">
+        <div className="bg-[#DACCFD]/70 rounded-b-3xl shadow-card p-2">
           <div className="flex items-center justify-around">
             <div className="flex items-center gap-3">
               <img src="/assets/icons/Doctor.svg" alt="Doctor" className="" />
@@ -407,7 +414,7 @@ const MembershipApplicationForm = ({ planName, price }) => {
       {/* Success Modal */}
       {showSuccessModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 px-4">
-          <div className="bg-white rounded-2xl md:rounded-3xl p-8 md:p-12 max-w-md mx-4 shadow-[5px_5px_5px_0px_rgba(0,0,0,0.25)] text-center">
+          <div className="bg-white rounded-2xl md:rounded-3xl p-8 md:p-12 max-w-md mx-4 shadow-card text-center">
             {/* Success Icon */}
             <div className="mb-4 md:mb-6 flex justify-center">
               <div className="w-16 md:w-20 h-16 md:h-20 bg-green-100 rounded-full flex items-center justify-center">
@@ -429,7 +436,7 @@ const MembershipApplicationForm = ({ planName, price }) => {
             <Button
               variant="custom"
               onClick={handleCloseModal}
-              className="bg-custom-purple text-white font-bold text-base md:text-lg py-2 md:py-3 px-6 md:px-8 rounded-full hover:bg-purple-700 transition-colors shadow-[5px_5px_5px_0px_rgba(0,0,0,0.25)] w-full md:w-auto"
+              className="bg-custom-purple text-white font-bold text-base md:text-lg py-2 md:py-3 px-6 md:px-8 rounded-full hover:bg-purple-700 transition-colors shadow-card w-full md:w-auto"
             >
               Close
             </Button>
@@ -441,3 +448,4 @@ const MembershipApplicationForm = ({ planName, price }) => {
 };
 
 export default MembershipApplicationForm;
+

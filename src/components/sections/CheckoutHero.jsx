@@ -64,7 +64,7 @@ const CheckoutHero = () => {
 
         <div
           ref={buttonRef}
-          className="bg-custom-purple text-white font-semibold text-base leading-[20px] py-3 px-8 rounded-full shadow-[5px_5px_5px_0px_rgba(0,0,0,0.25)] inline-block"
+          className="bg-custom-purple text-white font-semibold text-base leading-[20px] py-3 px-8 rounded-full shadow-card inline-block"
         >
           Starting From ₹399/Month
         </div>
@@ -74,3 +74,4 @@ const CheckoutHero = () => {
 };
 
 export default CheckoutHero;
+

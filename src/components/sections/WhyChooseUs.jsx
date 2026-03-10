@@ -27,7 +27,7 @@ const WhyChooseUs = () => {
       {/* Faded overlay at top */}
       {/* <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#E5F4FF] to-transparent pointer-events-none" /> */}
 
-      <div className="relative max-w-[1370px] mx-auto bg-transparent md:bg-white md:rounded-[25px] md:px-6 md:pt-6 md:pb-[78px] md:shadow-[0px_16px_40px_0px_rgba(0,0,0,0.06)]">
+      <div className="relative max-w-[1370px] mx-auto bg-transparent md:bg-white md:rounded-[25px] md:px-6 md:pt-6 md:pb-[78px] md:shadow-card-hover">
         {/* Header */}
         <div className="flex flex-col items-center justify-center text-center mb-8 md:mb-12">
           <button className="font-normal rounded-full hidden md:flex items-center gap-2 text-[17px] leading-[23px] bg-custom-purple text-white py-3 px-6 transition-colors">
@@ -75,7 +75,7 @@ const WhyChooseUs = () => {
           {features.map((feature, index) => (
             <div
               key={index}
-              className={`${feature.bgColor} p-6 rounded-[20px] gap-4 md:rounded-none transition-transform hover:scale-105 flex shadow-[0px_6px_5px_0px_rgba(0,0,0,0.09)]`}
+              className={`${feature.bgColor} p-6 rounded-[20px] gap-4 md:rounded-none transition-transform hover:scale-105 flex shadow-card-light`}
             >
               <div className='w-[70px] h-[70px] bg-[#B0E6EC] rounded-full flex items-center justify-center'>
                 <img
@@ -101,3 +101,4 @@ const WhyChooseUs = () => {
 };
 
 export default WhyChooseUs;
+
