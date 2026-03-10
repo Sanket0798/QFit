@@ -4,7 +4,7 @@ import { Button } from '../ui';
 
 const AboutUs = () => {
   return (
-    <section className="relative pt-[74px] px-4 bg-gradient-to-b from-[#E8EFFF]/30 via-[#E8EFFF]/50 to-white">
+    <section className="relative pt-[74px] px-4 md:bg-gradient-to-b md:from-[#E8EFFF]/30 md:via-[#E8EFFF]/50 md:to-white">
       {/* Faded overlay at bottom */}
       {/* <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-transparent to-[#E5F4FF] pointer-events-none" /> */}
 

@@ -6,7 +6,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import gsap from 'gsap';
 import { Button } from '../ui';
 import { QFIT_PLANS_DATA } from '../../constants/plansContent';
-import { RightArrowIcon } from '../common/SvgIcons';
+import { RightArrowIcon, RightUpArrowIcon } from '../common/SvgIcons';
 
 const HeroWithPlansSlider = () => {
   const navigate = useNavigate();
@@ -17,6 +17,7 @@ const HeroWithPlansSlider = () => {
   const buttonRef = useRef(null);
   const imageRef = useRef(null);
   const sliderRef = useRef(null);
+  const mobileCardsRef = useRef([]);
 
   const planColors = {
     'QFit Kavach': 'bg-gradient-to-b from-[#F9AAA6]/20 to-gray-100',
@@ -135,6 +136,22 @@ const HeroWithPlansSlider = () => {
     }
   }, []);
 
+  // Mobile cards animation
+  useEffect(() => {
+    if (window.innerWidth < 768) {
+      const validCards = mobileCardsRef.current.filter(card => card !== null);
+      if (validCards.length > 0) {
+        gsap.from(validCards, {
+          y: 30,
+          duration: 0.6,
+          stagger: 0.15,
+          ease: 'power3.out',
+          delay: 0.5,
+        });
+      }
+    }
+  }, []);
+
   const handlePlanClick = (planName) => {
     navigate(planRoutes[planName]);
   };
@@ -142,28 +159,24 @@ const HeroWithPlansSlider = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-[#E5F4FF] overflow-hidden before:absolute before:inset-0 before:bg-[url(/assets/images/bg/HowWorksBg.png)] before:bg-cover before:bg-center before:bg-no-repeat before:rotate-180 before:z-0 after:absolute after:inset-0 after:bg-[url(/assets/images/bg/DottedBg.png)] after:bg-repeat after:bg-center after:z-0"
-      style={{
-        marginTop: '-80px',
-        paddingTop: '150px',
-      }}
+      className="relative bg-gradient-to-b from-[#DDEDF9] to-white overflow-hidden before:absolute before:inset-0 before:bg-[url(/assets/images/bg/HowWorksBg.png)] before:bg-cover before:bg-center before:bg-no-repeat before:rotate-180 before:z-0 after:absolute after:inset-0 after:bg-[url(/assets/images/bg/DottedBg.png)] after:bg-repeat after:bg-center after:z-0 -mt-20 pt-32 md:pt-[150px]"
     >
       <div className="max-w-[1155px] mx-auto relative z-10">
-        <div className="flex flex-row items-center justify-between">
+        <div className="flex md:flex-row text-center md:text-start items-center justify-between">
           {/* Left Content */}
           <div className="">
             <h1
               ref={titleRef}
-              className="font-extrabold text-[40px] leading-[53px] text-custom-purple mb-5"
+              className="font-bold text-[25px] leading-[35px] md:font-extrabold md:text-[40px] md:leading-[53px] text-button-color md:text-custom-purple mb-2 md:mb-5"
             >
               <span className="">YOUR HEALTH,</span>
-              <br />
-              <span className="">OUR PRIORITY</span>
+              <br className='hidden md:block' />
+              <span className=""> OUR PRIORITY</span>
             </h1>
 
             <p
               ref={descRef}
-              className="text-custom-dark-text font-normal text-[17px] leading-[24px] max-w-[447px] mb-8"
+              className="text-[#4B5768] md:text-custom-dark-text font-normal text-sm md:text-[17px] leading-[19px] md:leading-[24px] max-w-[447px] mb-10 md:mb-8"
             >
               We provide comprehensive healthcare services with a personal touch, ensuring you receive the best care possible.
             </p>
@@ -171,16 +184,25 @@ const HeroWithPlansSlider = () => {
             <div ref={buttonRef}>
               <Button
                 variant="custom"
-                className="bg-custom-purple font-bold text-lg leading-[24px] hover:bg-purple-700 transition-colors text-white mb-10"
+                className="hidden md:block bg-custom-purple font-bold text-lg leading-[24px] hover:bg-purple-700 transition-colors text-white mb-10"
                 onClick={() => navigate('/plans')}
               >
                 Explore Wellness Plans
+              </Button>
+
+              <Button
+                variant="custom"
+                className="font-bold text-[15px] leading-[22px] bg-button-color gap-6 text-white mb-8 md:hidden"
+                onClick={() => navigate('/plans')}
+              >
+                Check Free Credit Score
+                <RightUpArrowIcon />
               </Button>
             </div>
 
             <div
               ref={badgeRef}
-              className="flex gap-[10px] items-center"
+              className="flex gap-[10px] items-center justify-center md:justify-start"
             >
               <img src="/assets/icons/Heart.svg" alt="Heart" className="" />
               <span className="bg-brand-gradient bg-clip-text text-transparent font-semibold text-xl leading-[120%]">Your Health, Our Priority</span>
@@ -190,7 +212,7 @@ const HeroWithPlansSlider = () => {
           {/* Right Illustration */}
           <div
             ref={imageRef}
-            className="relative flex justify-center items-center"
+            className="hidden relative md:flex justify-center items-center"
           >
             <img
               src="/assets/images/HeroImage.svg"
@@ -202,13 +224,13 @@ const HeroWithPlansSlider = () => {
       </div>
 
       {/* Plans Slider Section */}
-      <div className="mt-11 relative z-10">
-        <h2 className="font-bold text-3xl leading-[35px] text-[#212121] text-center mb-10">
+      <div className="mt-9 md:mt-11 relative z-10">
+        <h2 className="font-bold text-3xl leading-[35px] text-[#212121] text-center mb-6 md:mb-10">
           QFIT PLUS PLANS
         </h2>
 
-        {/* Slider Container */}
-        <div className="w-full slider-with-gap">
+        {/* Desktop Slider */}
+        <div className="hidden md:block w-full slider-with-gap">
           <style>{`
             .slider-with-gap .slick-slide {
               padding: 0 6px;
@@ -227,7 +249,6 @@ const HeroWithPlansSlider = () => {
                   <div className="text-center">
                     <h3 className="font-bold text-3xl tracing-[6%] text-custom-dark-text mb-4">
                       {plan.name.split(' ').slice(1).join(' ')}
-
                     </h3>
                   </div>
 
@@ -251,10 +272,44 @@ const HeroWithPlansSlider = () => {
             ))}
           </Slider>
         </div>
+
+        {/* Mobile Vertical Stack */}
+        <div className="md:hidden flex flex-col gap-4 px-[55px]">
+          {QFIT_PLANS_DATA.map((plan, index) => (
+            <div
+              key={plan.name}
+              ref={el => mobileCardsRef.current[index] = el}
+              className={`${planColors[plan.name]} rounded-t-3xl py-6 px-6 text-center border border-black/10`}
+              style={{ borderBottom: 'transparent' }}
+            >
+              <div className="text-center">
+                <h3 className="font-bold text-3xl leading-[35px] text-custom-dark-text mb-4">
+                  {plan.name.split(' ').slice(1).join(' ')}
+                </h3>
+              </div>
+
+              <div className="flex justify-center mb-5">
+                <img
+                  src={plan.icon}
+                  alt={plan.name}
+                  className="object-contain w-20 h-20"
+                />
+              </div>
+
+              <button
+                onClick={() => handlePlanClick(plan.name)}
+                className="w-[161px] h-[48px] inline-flex items-center justify-center gap-2 bg-custom-purple text-white rounded-full font-medium text-base leading-[24px] hover:bg-purple-700 transition-colors mx-auto"
+              >
+                Learn More
+                <RightArrowIcon color="#ffffff" />
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Why Choose Section Preview */}
-      <div className="mt-9 text-center relative z-10">
+      <div className="hidden md:block mt-9 text-center relative z-10">
         <h3 className="font-bold text-[40px] leading-[47px]">
           <span className="text-[#100701]">Why Choose </span>
           <span className="text-custom-purple">RupeeQ?</span>
