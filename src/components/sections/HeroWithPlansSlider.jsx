@@ -16,13 +16,14 @@ const HeroWithPlansSlider = () => {
   const descRef = useRef(null);
   const buttonRef = useRef(null);
   const imageRef = useRef(null);
+  const sliderRef = useRef(null);
 
   const planColors = {
-    'QFit Kavach': 'bg-pink-50',
-    'QFit Super': 'bg-cyan-50',
-    'QFit Lite': 'bg-green-50',
-    'QFit Essential': 'bg-purple-50',
-    'QFit Max': 'bg-yellow-50',
+    'QFit Kavach': 'bg-gradient-to-b from-[#F9AAA6]/20 to-gray-100',
+    'QFit Super': 'bg-gradient-to-b from-[#9FF1FA]/50 to-gray-100',
+    'QFit Lite': 'bg-gradient-to-b from-[#34CA8D]/20 to-gray-100',
+    'QFit Essential': 'bg-gradient-to-b from-[#5084FF]/20 to-gray-100',
+    'QFit Max': 'bg-gradient-to-b from-[#E8BE26]/20 to-gray-100',
   };
 
   const planRoutes = {
@@ -36,26 +37,27 @@ const HeroWithPlansSlider = () => {
   const sliderSettings = {
     dots: false,
     infinite: true,
-    speed: 5000,
-    slidesToShow: 3,
+    speed: 3000,
+    slidesToShow: 5,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 5000,
+    autoplaySpeed: 3000,
     cssEase: 'linear',
-    pauseOnHover: true,
+    pauseOnHover: false,
     centerMode: false,
     arrows: false,
-    waitForAnimate: false,
+    draggable: true,
+    swipe: true,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
-          speed: 5000,
-          autoplaySpeed: 5000,
+          speed: 3000,
+          autoplay: true,
+          autoplaySpeed: 3000,
           cssEase: 'linear',
-          waitForAnimate: false,
         }
       },
       {
@@ -63,10 +65,10 @@ const HeroWithPlansSlider = () => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          speed: 5000,
-          autoplaySpeed: 5000,
+          speed: 3000,
+          autoplay: true,
+          autoplaySpeed: 3000,
           cssEase: 'linear',
-          waitForAnimate: false,
         }
       }
     ]
@@ -124,6 +126,13 @@ const HeroWithPlansSlider = () => {
     }, sectionRef);
 
     return () => ctx.revert();
+  }, []);
+
+  // Force slider autoplay to start
+  useEffect(() => {
+    if (sliderRef.current) {
+      sliderRef.current.slickPlay();
+    }
   }, []);
 
   const handlePlanClick = (planName) => {
@@ -199,33 +208,40 @@ const HeroWithPlansSlider = () => {
         </h2>
 
         {/* Slider Container */}
-        <div className="w-full">
-          <Slider {...sliderSettings}>
-            {QFIT_PLANS_DATA.map((plan) => (
-              <div key={plan.name} className="px-2">
+        <div className="w-full slider-with-gap">
+          <style>{`
+            .slider-with-gap .slick-slide {
+              padding: 0 6px;
+            }
+            .slider-with-gap .slick-list {
+              margin: 0 -6px;
+            }
+          `}</style>
+          <Slider ref={sliderRef} {...sliderSettings}>
+            {[...QFIT_PLANS_DATA, ...QFIT_PLANS_DATA].map((plan, index) => (
+              <div key={`${plan.name}-${index}`} className="px-0">
                 <div
-                  className={`${planColors[plan.name]} rounded-3xl p-6 shadow-lg transition-all duration-300 hover:scale-105`}
+                  className={`${planColors[plan.name]} w-full h-[240px] rounded-t-3xl py-4 px-6 text-center border border-black/10`}
+                  style={{ borderBottom: 'transparent' }}
                 >
-                  <div className="text-center mb-6">
-                    <h3 className="text-2xl md:text-3xl font-bold text-custom-dark-text mb-2">
-                      {plan.name.split(' ')[0]}
-                    </h3>
-                    <h4 className="text-xl md:text-2xl font-bold text-custom-purple">
+                  <div className="text-center">
+                    <h3 className="font-bold text-3xl tracing-[6%] text-custom-dark-text mb-4">
                       {plan.name.split(' ').slice(1).join(' ')}
-                    </h4>
+
+                    </h3>
                   </div>
 
-                  <div className="flex justify-center mb-6">
+                  <div className="flex justify-center mb-5">
                     <img
                       src={plan.icon}
                       alt={plan.name}
-                      className="w-24 h-24 md:w-32 md:h-32 object-contain"
+                      className="object-contain"
                     />
                   </div>
 
                   <button
                     onClick={() => handlePlanClick(plan.name)}
-                    className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-custom-purple text-white rounded-full text-base font-bold hover:bg-purple-700 transition-colors shadow-md"
+                    className="w-[161px] h-[48px] inline-flex items-center justify-center gap-2 bg-custom-purple text-white rounded-full font-medium text-base leading-[24px] hover:bg-purple-700 transition-colors"
                   >
                     Learn More
                     <RightArrowIcon color="#ffffff" />
