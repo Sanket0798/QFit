@@ -1,5 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import gsap from 'gsap';
 import { Button } from '../ui';
 import { QFIT_PLANS_DATA } from '../../constants/plansContent';
@@ -13,11 +16,6 @@ const HeroWithPlansSlider = () => {
   const descRef = useRef(null);
   const buttonRef = useRef(null);
   const imageRef = useRef(null);
-  const sliderRef = useRef(null);
-
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const [isMobile, setIsMobile] = useState(false);
 
   const planColors = {
     'QFit Kavach': 'bg-pink-50',
@@ -35,37 +33,44 @@ const HeroWithPlansSlider = () => {
     'QFit Max': '/plans/qfit-max',
   };
 
-  // Check if mobile
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  // Auto-play slider
-  useEffect(() => {
-    if (!isAutoPlaying) return;
-
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => {
-        const next = (prev + 1) % QFIT_PLANS_DATA.length;
-        // Scroll to the next slide
-        if (sliderRef.current) {
-          const cardWidth = isMobile ? 296 : 344; // card width + gap
-          sliderRef.current.scrollTo({
-            left: next * cardWidth,
-            behavior: 'smooth'
-          });
+  const sliderSettings = {
+    dots: false,
+    infinite: true,
+    speed: 5000,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    cssEase: 'linear',
+    pauseOnHover: true,
+    centerMode: false,
+    arrows: false,
+    waitForAnimate: false,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          speed: 5000,
+          autoplaySpeed: 5000,
+          cssEase: 'linear',
+          waitForAnimate: false,
         }
-        return next;
-      });
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, [isAutoPlaying, isMobile]);
+      },
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          speed: 5000,
+          autoplaySpeed: 5000,
+          cssEase: 'linear',
+          waitForAnimate: false,
+        }
+      }
+    ]
+  };
 
   // Initial animations
   useEffect(() => {
@@ -125,36 +130,16 @@ const HeroWithPlansSlider = () => {
     navigate(planRoutes[planName]);
   };
 
-  const handleDotClick = (index) => {
-    setCurrentSlide(index);
-    setIsAutoPlaying(false);
-
-    // Scroll to the selected slide
-    if (sliderRef.current) {
-      const cardWidth = isMobile ? 296 : 344;
-      sliderRef.current.scrollTo({
-        left: index * cardWidth,
-        behavior: 'smooth'
-      });
-    }
-
-    setTimeout(() => setIsAutoPlaying(true), 5000);
-  };
-
   return (
     <section
       ref={sectionRef}
-      className="relative bg-[#E5F4FF] overflow-hidden"
+      className="relative bg-[#E5F4FF] overflow-hidden before:absolute before:inset-0 before:bg-[url(/assets/images/bg/HowWorksBg.png)] before:bg-cover before:bg-center before:bg-no-repeat before:rotate-180 before:z-0 after:absolute after:inset-0 after:bg-[url(/assets/images/bg/DottedBg.png)] after:bg-repeat after:bg-center after:z-0"
       style={{
-        backgroundImage: 'url(/assets/images/bg/DottedBg.png), url(/assets/images/bg/HowWorksBg.png)',
-        backgroundSize: 'auto, cover',
-        backgroundPosition: 'center, center',
-        backgroundRepeat: 'repeat, no-repeat',
         marginTop: '-80px',
         paddingTop: '150px',
       }}
     >
-      <div className="max-w-[1155px] mx-auto">
+      <div className="max-w-[1155px] mx-auto relative z-10">
         <div className="flex flex-row items-center justify-between">
           {/* Left Content */}
           <div className="">
@@ -208,78 +193,52 @@ const HeroWithPlansSlider = () => {
       </div>
 
       {/* Plans Slider Section */}
-      <div className="mt-11">
+      <div className="mt-11 relative z-10">
         <h2 className="font-bold text-3xl leading-[35px] text-[#212121] text-center mb-10">
-          {/* <span className="">QFIT PLUS </span> */}
-          {/* <span className="">PLANS</span> */}
           QFIT PLUS PLANS
         </h2>
 
         {/* Slider Container */}
-        <div className="relative overflow-hidden">
-          <div
-            ref={sliderRef}
-            className="flex gap-4 md:gap-6 overflow-x-auto scrollbar-hide scroll-smooth px-4"
-            style={{
-              scrollbarWidth: 'none',
-              msOverflowStyle: 'none',
-            }}
-            onMouseEnter={() => setIsAutoPlaying(false)}
-            onMouseLeave={() => setIsAutoPlaying(true)}
-          >
-            {QFIT_PLANS_DATA.map((plan, index) => (
-              <div
-                key={plan.name}
-                className={`flex-shrink-0 w-[280px] md:w-[320px] ${planColors[plan.name]} rounded-3xl p-6 shadow-lg transition-all duration-300 ${index === currentSlide ? 'scale-105 ring-4 ring-purple-400' : 'scale-100'
-                  }`}
-              >
-                <div className="text-center mb-6">
-                  <h3 className="text-2xl md:text-3xl font-bold text-custom-dark-text mb-2">
-                    {plan.name.split(' ')[0]}
-                  </h3>
-                  <h4 className="text-xl md:text-2xl font-bold text-custom-purple">
-                    {plan.name.split(' ').slice(1).join(' ')}
-                  </h4>
-                </div>
-
-                <div className="flex justify-center mb-6">
-                  <img
-                    src={plan.icon}
-                    alt={plan.name}
-                    className="w-24 h-24 md:w-32 md:h-32 object-contain"
-                  />
-                </div>
-
-                <button
-                  onClick={() => handlePlanClick(plan.name)}
-                  className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-custom-purple text-white rounded-full text-base font-bold hover:bg-purple-700 transition-colors shadow-md"
+        <div className="w-full">
+          <Slider {...sliderSettings}>
+            {QFIT_PLANS_DATA.map((plan) => (
+              <div key={plan.name} className="px-2">
+                <div
+                  className={`${planColors[plan.name]} rounded-3xl p-6 shadow-lg transition-all duration-300 hover:scale-105`}
                 >
-                  Learn More
-                  <RightArrowIcon color="#ffffff" />
-                </button>
+                  <div className="text-center mb-6">
+                    <h3 className="text-2xl md:text-3xl font-bold text-custom-dark-text mb-2">
+                      {plan.name.split(' ')[0]}
+                    </h3>
+                    <h4 className="text-xl md:text-2xl font-bold text-custom-purple">
+                      {plan.name.split(' ').slice(1).join(' ')}
+                    </h4>
+                  </div>
+
+                  <div className="flex justify-center mb-6">
+                    <img
+                      src={plan.icon}
+                      alt={plan.name}
+                      className="w-24 h-24 md:w-32 md:h-32 object-contain"
+                    />
+                  </div>
+
+                  <button
+                    onClick={() => handlePlanClick(plan.name)}
+                    className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-custom-purple text-white rounded-full text-base font-bold hover:bg-purple-700 transition-colors shadow-md"
+                  >
+                    Learn More
+                    <RightArrowIcon color="#ffffff" />
+                  </button>
+                </div>
               </div>
             ))}
-          </div>
-
-          {/* Navigation Dots */}
-          <div className="flex justify-center gap-2 mt-6">
-            {QFIT_PLANS_DATA.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => handleDotClick(index)}
-                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${index === currentSlide
-                  ? 'bg-custom-purple w-8'
-                  : 'bg-gray-400'
-                  }`}
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
-          </div>
+          </Slider>
         </div>
       </div>
 
       {/* Why Choose Section Preview */}
-      <div className="mt-9 text-center">
+      <div className="mt-9 text-center relative z-10">
         <h3 className="font-bold text-[40px] leading-[47px]">
           <span className="text-[#100701]">Why Choose </span>
           <span className="text-custom-purple">RupeeQ?</span>
