@@ -151,33 +151,25 @@ const HeroWithPlansSlider = () => {
         backgroundPosition: 'center, center',
         backgroundRepeat: 'repeat, no-repeat',
         marginTop: '-80px',
-        paddingTop: '100px',
+        paddingTop: '150px',
       }}
     >
-      <div className="container mx-auto px-4 py-12 md:py-16">
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center mb-12">
+      <div className="max-w-[1155px] mx-auto">
+        <div className="flex flex-row items-center justify-between">
           {/* Left Content */}
-          <div className="space-y-4 md:space-y-6">
-            <div
-              ref={badgeRef}
-              className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm"
-            >
-              <img src="/assets/icons/Heart.svg" alt="Heart" className="w-6 h-6" />
-              <span className="text-sm md:text-base font-medium text-[#0072F2]">Your Health, Our Priority</span>
-            </div>
-
+          <div className="">
             <h1
               ref={titleRef}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight"
+              className="font-extrabold text-[40px] leading-[53px] text-custom-purple mb-5"
             >
-              <span className="text-custom-purple">YOUR HEALTH,</span>
+              <span className="">YOUR HEALTH,</span>
               <br />
-              <span className="text-custom-dark-text">OUR PRIORITY</span>
+              <span className="">OUR PRIORITY</span>
             </h1>
 
             <p
               ref={descRef}
-              className="text-custom-dark-text text-base md:text-lg max-w-lg leading-relaxed"
+              className="text-custom-dark-text font-normal text-[17px] leading-[24px] max-w-[447px] mb-8"
             >
               We provide comprehensive healthcare services with a personal touch, ensuring you receive the best care possible.
             </p>
@@ -185,11 +177,19 @@ const HeroWithPlansSlider = () => {
             <div ref={buttonRef}>
               <Button
                 variant="custom"
-                className="bg-custom-purple text-white font-bold text-base md:text-lg py-3 px-6 md:px-8 rounded-full hover:bg-purple-700 transition-colors shadow-[5px_5px_5px_0px_rgba(0,0,0,0.25)]"
+                className="bg-custom-purple font-bold text-lg leading-[24px] hover:bg-purple-700 transition-colors text-white mb-10"
                 onClick={() => navigate('/plans')}
               >
                 Explore Wellness Plans
               </Button>
+            </div>
+
+            <div
+              ref={badgeRef}
+              className="flex gap-[10px] items-center"
+            >
+              <img src="/assets/icons/Heart.svg" alt="Heart" className="" />
+              <span className="bg-brand-gradient bg-clip-text text-transparent font-semibold text-xl leading-[120%]">Your Health, Our Priority</span>
             </div>
           </div>
 
@@ -199,104 +199,108 @@ const HeroWithPlansSlider = () => {
             className="relative flex justify-center items-center"
           >
             <img
-              src="/assets/images/HeroImage.png"
+              src="/assets/images/HeroImage.svg"
               alt="Healthcare Team"
-              className="w-full h-auto object-contain max-w-md md:max-w-lg"
+              className="object-contain"
             />
           </div>
         </div>
+      </div>
 
-        {/* Plans Slider Section */}
-        <div className="mt-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
-            <span className="text-custom-dark-text">QFIT PLUS </span>
-            <span className="text-custom-dark-text">PLANS</span>
-          </h2>
+      {/* Plans Slider Section */}
+      <div className="mt-11">
+        <h2 className="font-bold text-3xl leading-[35px] text-[#212121] text-center mb-10">
+          {/* <span className="">QFIT PLUS </span> */}
+          {/* <span className="">PLANS</span> */}
+          QFIT PLUS PLANS
+        </h2>
 
-          {/* Slider Container */}
-          <div className="relative overflow-hidden">
-            <div
-              ref={sliderRef}
-              className="flex gap-4 md:gap-6 overflow-x-auto scrollbar-hide scroll-smooth px-4"
-              style={{
-                scrollbarWidth: 'none',
-                msOverflowStyle: 'none',
-              }}
-              onMouseEnter={() => setIsAutoPlaying(false)}
-              onMouseLeave={() => setIsAutoPlaying(true)}
-            >
-              {QFIT_PLANS_DATA.map((plan, index) => (
-                <div
-                  key={plan.name}
-                  className={`flex-shrink-0 w-[280px] md:w-[320px] ${planColors[plan.name]} rounded-3xl p-6 shadow-lg transition-all duration-300 ${index === currentSlide ? 'scale-105 ring-4 ring-purple-400' : 'scale-100'
-                    }`}
-                >
-                  <div className="text-center mb-6">
-                    <h3 className="text-2xl md:text-3xl font-bold text-custom-dark-text mb-2">
-                      {plan.name.split(' ')[0]}
-                    </h3>
-                    <h4 className="text-xl md:text-2xl font-bold text-custom-purple">
-                      {plan.name.split(' ').slice(1).join(' ')}
-                    </h4>
-                  </div>
-
-                  <div className="flex justify-center mb-6">
-                    <img
-                      src={plan.icon}
-                      alt={plan.name}
-                      className="w-24 h-24 md:w-32 md:h-32 object-contain"
-                    />
-                  </div>
-
-                  <button
-                    onClick={() => handlePlanClick(plan.name)}
-                    className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-custom-purple text-white rounded-full text-base font-bold hover:bg-purple-700 transition-colors shadow-md"
-                  >
-                    Learn More
-                    <RightArrowIcon color="#ffffff" />
-                  </button>
+        {/* Slider Container */}
+        <div className="relative overflow-hidden">
+          <div
+            ref={sliderRef}
+            className="flex gap-4 md:gap-6 overflow-x-auto scrollbar-hide scroll-smooth px-4"
+            style={{
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none',
+            }}
+            onMouseEnter={() => setIsAutoPlaying(false)}
+            onMouseLeave={() => setIsAutoPlaying(true)}
+          >
+            {QFIT_PLANS_DATA.map((plan, index) => (
+              <div
+                key={plan.name}
+                className={`flex-shrink-0 w-[280px] md:w-[320px] ${planColors[plan.name]} rounded-3xl p-6 shadow-lg transition-all duration-300 ${index === currentSlide ? 'scale-105 ring-4 ring-purple-400' : 'scale-100'
+                  }`}
+              >
+                <div className="text-center mb-6">
+                  <h3 className="text-2xl md:text-3xl font-bold text-custom-dark-text mb-2">
+                    {plan.name.split(' ')[0]}
+                  </h3>
+                  <h4 className="text-xl md:text-2xl font-bold text-custom-purple">
+                    {plan.name.split(' ').slice(1).join(' ')}
+                  </h4>
                 </div>
-              ))}
-            </div>
 
-            {/* Navigation Dots */}
-            <div className="flex justify-center gap-2 mt-6">
-              {QFIT_PLANS_DATA.map((_, index) => (
+                <div className="flex justify-center mb-6">
+                  <img
+                    src={plan.icon}
+                    alt={plan.name}
+                    className="w-24 h-24 md:w-32 md:h-32 object-contain"
+                  />
+                </div>
+
                 <button
-                  key={index}
-                  onClick={() => handleDotClick(index)}
-                  className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${index === currentSlide
-                    ? 'bg-custom-purple w-8'
-                    : 'bg-gray-400'
-                    }`}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
-            </div>
+                  onClick={() => handlePlanClick(plan.name)}
+                  className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-custom-purple text-white rounded-full text-base font-bold hover:bg-purple-700 transition-colors shadow-md"
+                >
+                  Learn More
+                  <RightArrowIcon color="#ffffff" />
+                </button>
+              </div>
+            ))}
+          </div>
+
+          {/* Navigation Dots */}
+          <div className="flex justify-center gap-2 mt-6">
+            {QFIT_PLANS_DATA.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => handleDotClick(index)}
+                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${index === currentSlide
+                  ? 'bg-custom-purple w-8'
+                  : 'bg-gray-400'
+                  }`}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
           </div>
         </div>
+      </div>
 
-        {/* Why Choose Section Preview */}
-        <div className="mt-16 text-center">
-          <h3 className="text-2xl md:text-3xl font-bold mb-4">
-            <span className="text-custom-dark-text">Why Choose </span>
-            <span className="text-custom-purple">RupeeQ?</span>
-          </h3>
+      {/* Why Choose Section Preview */}
+      <div className="mt-9 text-center">
+        <h3 className="font-bold text-[40px] leading-[47px]">
+          <span className="text-[#100701]">Why Choose </span>
+          <span className="text-custom-purple">RupeeQ?</span>
+        </h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-            <div className="flex flex-col items-center gap-3 bg-cyan-50 rounded-2xl p-6">
-              <img src="/assets/icons/Doctor.svg" alt="Doctors" className="w-12 h-12" />
-              <p className="font-semibold text-custom-dark-text">Good Doctors Team</p>
-            </div>
-
-            <div className="flex flex-col items-center gap-3 bg-purple-50 rounded-2xl p-6">
-              <img src="/assets/icons/Care.svg" alt="Care" className="w-12 h-12" />
-              <p className="font-semibold text-custom-dark-text">Personalized Care</p>
-            </div>
-
-            <div className="flex flex-col items-center gap-3 bg-blue-50 rounded-2xl p-6">
-              <img src="/assets/icons/HandShake.svg" alt="Support" className="w-12 h-12" />
-              <p className="font-semibold text-custom-dark-text">Claims Concierge support</p>
+        {/* Bottom Features Section - Desktop Only */}
+        <div className="hidden md:block mt-11">
+          <div className="bg-[#DACCFD]/70 rounded-t-3xl p-2">
+            <div className="flex items-center justify-around">
+              <div className="flex items-center gap-3">
+                <img src="/assets/icons/Doctor.svg" alt="Doctor" className="" />
+                <span className="text-lg leading-[21px] font-semibold text-custom-dark-text">Good Doctors Team</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <img src="/assets/icons/Care.svg" alt="Care" className="" />
+                <span className="text-lg leading-[21px] font-semibold text-custom-dark-text">Personalized Care</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <img src="/assets/icons/24Service.svg" alt="Customer Care" className="" />
+                <span className="text-lg leading-[21px] font-semibold text-custom-dark-text">Claims Concierge support</span>
+              </div>
             </div>
           </div>
         </div>
