@@ -97,9 +97,9 @@ const Footer = () => {
           {/* Logo */}
           <div ref={logoRef} className="flex items-center">
             <img
-              src="/assets/logos/main-logo.svg"
+              src="/assets/logos/main-logo.png"
               alt="RupeeQ Logo"
-              className="w-[112px] md:w-[156px]"
+              className="w-[112px] md:w-[120px]"
               onError={(e) => {
                 e.target.style.display = 'none';
                 e.target.nextSibling.style.display = 'flex';

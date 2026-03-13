@@ -93,7 +93,8 @@ const Navbar = () => {
               className="flex w-[122px] md:w-full items-center hover:opacity-80 transition-opacity cursor-pointer"
             >
               <img
-                src="/assets/logos/main-logo.svg"
+                src="/assets/logos/main-logo.png"
+                className='w-[146px]'
                 alt="RupeeQ Logo"
                 onError={(e) => {
                   // Fallback to text if image not found
