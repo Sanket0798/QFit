@@ -7,13 +7,7 @@ export default defineConfig({
   build: {
     // Production optimizations
     target: 'es2015',
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true, // Remove console.logs in production
-        drop_debugger: true,
-      },
-    },
+    minify: 'esbuild', // Use esbuild instead of terser (faster and no extra dependency)
     rollupOptions: {
       output: {
         manualChunks: {
@@ -25,8 +19,8 @@ export default defineConfig({
         },
       },
     },
-    // Generate source maps for production debugging
-    sourcemap: true,
+    // Disable source maps for production (better performance)
+    sourcemap: false,
     // Chunk size warnings
     chunkSizeWarningLimit: 1000,
   },
