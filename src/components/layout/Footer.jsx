@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Facebook, Linkedin, Instagram } from 'lucide-react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -157,19 +157,19 @@ const Footer = () => {
             <h4 className="font-semibold text-custom-dark-text mb-4 text-lg">Links</h4>
             <ul className="space-y-2 text-[#4B5768]">
               <li>
-                <a href="/" className="hover:text-primary transition-colors text-sm">
+                <Link to="/" className="hover:text-primary transition-colors text-sm">
                   Home
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#about" className="hover:text-primary transition-colors text-sm">
+                <Link to="/about" className="hover:text-primary transition-colors text-sm">
                   About
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#qfit-plans" className="hover:text-primary transition-colors text-sm">
+                <Link to="/plans" className="hover:text-primary transition-colors text-sm">
                   Plans
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -179,14 +179,14 @@ const Footer = () => {
             <h4 className="font-semibold text-custom-dark-text mb-4 text-lg">Links</h4>
             <ul className="space-y-2 text-[#4B5768]">
               <li>
-                <a href="/terms-conditions" className="hover:text-primary transition-colors text-sm">
+                <Link to="/terms-conditions" className="hover:text-primary transition-colors text-sm">
                   Terms & Conditions
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/contact-us" className="hover:text-primary transition-colors text-sm">
+                <Link to="/contact-us" className="hover:text-primary transition-colors text-sm">
                   Contact us
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -196,9 +196,9 @@ const Footer = () => {
             <h4 className="font-semibold text-custom-dark-text mb-4 text-lg">About Us:</h4>
             <p className="text-[#4B5768] text-sm leading-relaxed">
               Our mission is to deliver reliable, high-quality care with deep empathy. We combine{' '}
-              <a href="#about" className="text-blue-500 hover:underline">
+              <Link to="/about" className="text-blue-500 hover:underline" onClick={() => window.scrollTo({ top: 0, behavior: 'instant' })}>
                 read more...
-              </a>
+              </Link>
             </p>
           </div>
         </div>

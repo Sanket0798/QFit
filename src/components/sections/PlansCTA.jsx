@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Button } from '../ui';
@@ -9,6 +10,14 @@ gsap.registerPlugin(ScrollTrigger);
 
 const PlansCTA = () => {
   const { title, subtitle, buttonText } = QFIT_PLANS_CTA;
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleCTAClick = () => {
+    // If already on plans or checkout pages, go home instead
+    const isOnPlansFlow = location.pathname.startsWith('/plans') || location.pathname.startsWith('/checkout');
+    navigate(isOnPlansFlow ? '/' : '/plans');
+  };
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
@@ -79,7 +88,7 @@ const PlansCTA = () => {
           ref={buttonRef}
           variant="custom"
           className="text-lg !font-normal leading-[20px] text-white gap-5 md:gap-2 rounded-full bg-custom-purple mt-10 w-full md:w-[190px] md:mt-[47px]"
-
+          onClick={() => handleCTAClick()}
         >
 
           {buttonText}

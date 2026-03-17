@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import React from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -11,6 +11,23 @@ const PlanTable = ({ planDetails }) => {
   const mobileCardsRef = useRef([]);
   const desktopHeaderRef = useRef(null);
   const desktopSectionsRef = useRef([]);
+  const [showRemarks, setShowRemarks] = useState(false);
+
+  // Collect all remarks for mobile view
+  const allRemarks = [
+    ...planDetails.eligibilityRemarks.filter(Boolean).map((r, i) => ({
+      label: planDetails.eligibility[i]?.label || '',
+      remark: r,
+    })),
+    ...planDetails.wellness.filter(item => item.remark).map(item => ({
+      label: item.label,
+      remark: item.remark,
+    })),
+    ...planDetails.insurance.filter(item => item.remark).map(item => ({
+      label: item.label,
+      remark: item.remark,
+    })),
+  ];
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -133,11 +150,25 @@ const PlanTable = ({ planDetails }) => {
             ))}
           </div>
 
-          {/* Remarks Link */}
+          {/* Remarks Toggle */}
           <div ref={el => mobileCardsRef.current[4] = el} className="text-center pt-2">
-            <a href="#" className="font-bold text-xl leading-[25px] text-[#0072F2] underline">
-              Remarks...
-            </a>
+            <button
+              onClick={() => setShowRemarks(prev => !prev)}
+              className="font-bold text-xl leading-[25px] text-[#0072F2] underline"
+            >
+              {showRemarks ? 'Hide Remarks ▲' : 'Remarks... ▼'}
+            </button>
+
+            {showRemarks && allRemarks.length > 0 && (
+              <div className="mt-4 text-left space-y-3 bg-[#F7F3FF] rounded-[10px] p-5 shadow-card-light">
+                {allRemarks.map((item, i) => (
+                  <div key={i}>
+                    <p className="font-semibold text-sm text-custom-dark-text">{item.label}</p>
+                    <p className="font-normal text-sm text-[#4B5768] leading-relaxed">{item.remark}</p>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 

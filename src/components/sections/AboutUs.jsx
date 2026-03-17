@@ -1,8 +1,10 @@
+import { useNavigate } from 'react-router-dom';
 import { RightArrowIcon, RightUpArrowIcon } from '../common/SvgIcons';
 import { Button } from '../ui';
 
 
 const AboutUs = () => {
+  const navigate = useNavigate();
   return (
     <section className="relative pt-[74px] px-4 md:bg-gradient-to-b md:from-[#E8EFFF]/30 md:via-[#E8EFFF]/50 md:to-white">
       {/* Faded overlay at bottom */}
@@ -25,10 +27,9 @@ const AboutUs = () => {
             </p>
 
             <Button
-              // ref={buttonRef}
               variant="custom"
               className="text-lg !font-normal leading-[20px] text-white gap-5 md:gap-2 rounded-full bg-custom-purple mt-10 w-full md:w-[190px] md:mt-[76px]"
-
+              onClick={() => navigate('/plans')}
             >
 
               Learn More

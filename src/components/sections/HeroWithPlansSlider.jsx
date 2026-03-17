@@ -176,7 +176,7 @@ const HeroWithPlansSlider = () => {
 
             <p
               ref={descRef}
-              className="text-[#4B5768] md:text-custom-dark-text font-normal text-sm md:text-[17px] leading-[19px] md:leading-[24px] max-w-[447px] mb-10 md:mb-8"
+              className="text-[#4B5768] md:text-custom-dark-text font-normal text-sm md:text-[17px] leading-[19px] px-6 md:px-0 md:leading-[24px] max-w-[447px] mb-10 md:mb-8"
             >
               We provide comprehensive healthcare services with a personal touch, ensuring you receive the best care possible.
             </p>
@@ -274,7 +274,7 @@ const HeroWithPlansSlider = () => {
         </div>
 
         {/* Mobile Vertical Stack */}
-        <div className="md:hidden flex flex-col gap-4 px-[55px]">
+        <div className="md:hidden flex flex-col gap-4 px-[55px] mb-10 md:mb-0">
           {QFIT_PLANS_DATA.map((plan, index) => (
             <div
               key={plan.name}
@@ -312,7 +312,7 @@ const HeroWithPlansSlider = () => {
       <div className="hidden md:block mt-9 text-center relative z-10">
         <h3 className="font-bold text-[40px] leading-[47px]">
           <span className="text-[#100701]">Why Choose </span>
-          <span className="text-custom-purple">RupeeQ?</span>
+          <span className="text-custom-purple">QFit?</span>
         </h3>
 
         {/* Bottom Features Section - Desktop Only */}

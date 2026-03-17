@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { Button } from '../ui';
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -15,13 +16,13 @@ const Navbar = () => {
       name: 'Home', 
       hasDropdown: true,
       dropdownItems: [
-        { name: 'About Us', id: 'about' },
+        { name: 'About Us', id: 'about-us', homePath: '/' },
         { name: 'Our Plans', path: '/plans' },
-        { name: 'Why Choose Us', id: 'why-choose' }
+        { name: 'Why Choose Us', id: 'why-choose-us', homePath: '/' }
       ]
     },
     { name: 'Plans', path: '/plans' },
-    { name: 'About', id: 'about' },
+    { name: 'About', path: '/about' },
     { name: 'Terms & Conditions', path: '/terms-conditions' },
     { name: 'Contact Us', path: '/contact-us' },
   ];
@@ -55,6 +56,35 @@ const Navbar = () => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const offset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+    }
+  };
+
+  const handleDropdownItemClick = (item) => {
+    setOpenDropdown(null);
+    setIsOpen(false);
+
+    if (item.path) {
+      navigate(item.path);
+      return;
+    }
+
+    // Item has a section id — if we're already on the home page, scroll directly
+    if (item.homePath && location.pathname !== item.homePath) {
+      navigate(item.homePath);
+      // After navigation, wait for the page to render then scroll
+      setTimeout(() => scrollToSection(item.id), 300);
+    } else {
+      scrollToSection(item.id);
+    }
+  };
 
   const toggleDropdown = (linkName) => {
     setOpenDropdown(openDropdown === linkName ? null : linkName);
@@ -130,23 +160,7 @@ const Navbar = () => {
                           {link.dropdownItems.map((item) => (
                             <button
                               key={item.path || item.id}
-                              onClick={() => {
-                                if (item.path) {
-                                  navigate(item.path);
-                                } else if (item.id) {
-                                  const element = document.getElementById(item.id);
-                                  if (element) {
-                                    const offset = 80;
-                                    const elementPosition = element.getBoundingClientRect().top;
-                                    const offsetPosition = elementPosition + window.pageYOffset - offset;
-                                    window.scrollTo({
-                                      top: offsetPosition,
-                                      behavior: 'smooth'
-                                    });
-                                  }
-                                }
-                                setOpenDropdown(null);
-                              }}
+                              onClick={() => handleDropdownItemClick(item)}
                               className="w-full text-left px-4 py-3 text-neutral-700 hover:bg-purple-50 hover:text-primary transition-colors duration-200 font-medium"
                             >
                               {item.name}
@@ -170,7 +184,7 @@ const Navbar = () => {
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-neutral-700 hover:text-primary transition-colors"
@@ -205,24 +219,7 @@ const Navbar = () => {
                         {link.dropdownItems.map((item) => (
                           <button
                             key={item.path || item.id}
-                            onClick={() => {
-                              if (item.path) {
-                                navigate(item.path);
-                              } else if (item.id) {
-                                const element = document.getElementById(item.id);
-                                if (element) {
-                                  const offset = 80;
-                                  const elementPosition = element.getBoundingClientRect().top;
-                                  const offsetPosition = elementPosition + window.pageYOffset - offset;
-                                  window.scrollTo({
-                                    top: offsetPosition,
-                                    behavior: 'smooth'
-                                  });
-                                }
-                              }
-                              setIsOpen(false);
-                              setOpenDropdown(null);
-                            }}
+                            onClick={() => handleDropdownItemClick(item)}
                             className="w-full text-left px-3 py-2 text-sm text-neutral-600 hover:text-primary hover:bg-neutral-50 rounded-md transition-colors"
                           >
                             {item.name}
@@ -244,7 +241,7 @@ const Navbar = () => {
             ))}
             <Button variant="header" className="w-full mt-2" onClick={() => {
               setIsOpen(false);
-              navigate('/contact-us');
+              navigate('/plans');
             }}>Get Started</Button>
           </div>
         </div>

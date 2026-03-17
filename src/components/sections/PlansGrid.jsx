@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Button } from '../ui';
@@ -9,8 +10,17 @@ import PlansBenefits from './PlansBenefits';
 gsap.registerPlugin(ScrollTrigger);
 
 const PlansGrid = () => {
+  const navigate = useNavigate();
   const sectionRef = useRef(null);
   const cardsRef = useRef([]);
+
+  const planRoutes = {
+    'QFit Kavach': '/plans/qfit-kavach',
+    'QFit Super': '/plans/qfit-super',
+    'QFit Lite': '/plans/qfit-lite',
+    'QFit Essential': '/plans/qfit-essential',
+    'QFit Max': '/plans/qfit-max',
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -112,14 +122,7 @@ const PlansGrid = () => {
             className="text-[#0072F2] hover:underline text-base md:text-xl leading-[20px] md:leading-[26px] font-normal inline-block card-content-spacing"
             onClick={(e) => {
               e.preventDefault();
-              const planRoutes = {
-                'QFit Kavach': '/plans/qfit-kavach',
-                'QFit Super': '/plans/qfit-super',
-                'QFit Lite': '/plans/qfit-lite',
-                'QFit Essential': '/plans/qfit-essential',
-                'QFit Max': '/plans/qfit-max',
-              };
-              window.location.href = planRoutes[plan.name] || '/plans';
+              navigate(planRoutes[plan.name] || '/plans');
             }}
           >
             View More....
@@ -130,16 +133,7 @@ const PlansGrid = () => {
             <Button
               variant="primary"
               className="text-base md:text-lg font-bold leading-[20px] md:leading-[22px] gap-2 rounded-full w-full md:w-auto"
-              onClick={() => {
-                const planRoutes = {
-                  'QFit Kavach': '/plans/qfit-kavach',
-                  'QFit Super': '/plans/qfit-super',
-                  'QFit Lite': '/plans/qfit-lite',
-                  'QFit Essential': '/plans/qfit-essential',
-                  'QFit Max': '/plans/qfit-max',
-                };
-                window.location.href = planRoutes[plan.name] || '/plans';
-              }}
+              onClick={() => navigate(planRoutes[plan.name] || '/plans')}
             >
               Buy Now
               <RightArrowIcon color='white' />
