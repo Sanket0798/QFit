@@ -13,6 +13,8 @@ export const QFIT_PLANS_DATA = [
     price: '₹ 1699',
     icon: '/assets/images/family/family.svg',
     color: 'purple',
+    tagline: 'Essential healthcare support for everyday medical needs.',
+    bestFor: 'Individuals looking for affordable access to doctors and specialist consultations.',
     features: [
       { text: 'No Age Limit (For Wellness) &\n18-65 Years (For Wellness)', icon: '👥', included: true },
       { text: '1 Year', icon: '📅', included: true },
@@ -28,6 +30,8 @@ export const QFIT_PLANS_DATA = [
     price: '₹ 2699',
     icon: '/assets/images/family/family.svg',
     color: 'blue',
+    tagline: 'Healthcare support plus OPD benefits for routine medical expenses.',
+    bestFor: 'Families who want consultations along with basic OPD expense coverage.',
     features: [
       { text: 'No Age Limit (For Wellness) &\n18-65 Years (For Wellness)', icon: '👥', included: true },
       { text: '1 Year', icon: '📅', included: true },
@@ -44,6 +48,8 @@ export const QFIT_PLANS_DATA = [
     price: '₹ 7199',
     icon: '/assets/images/family/JointFamily.svg',
     color: 'purple',
+    tagline: 'A smart health plan that covers consultations, medicines, and diagnostics.',
+    bestFor: 'Individuals and families who want balanced wellness benefits with EMI protection.',
     features: [
       { text: 'No Age Limit (For Wellness) &\n18-65 Years (For Wellness)', icon: '👥', included: true },
       { text: '1 Year', icon: '📅', included: true },
@@ -62,6 +68,8 @@ export const QFIT_PLANS_DATA = [
     price: '₹ 15,398',
     icon: '/assets/images/family/JointFamily.svg',
     color: 'purple',
+    tagline: 'Comprehensive healthcare protection with higher OPD and medical benefits.',
+    bestFor: 'Families who want strong coverage for doctor visits, diagnostics, medicines, and preventive checkups.',
     features: [
       { text: 'No Age Limit (For Wellness) &\n18-65 Years (For Wellness)', icon: '👥', included: true },
       { text: '1 Year', icon: '📅', included: true },
@@ -81,6 +89,8 @@ export const QFIT_PLANS_DATA = [
     price: '₹ 20,398',
     icon: '/assets/images/family/JointFamily.svg',
     color: 'purple',
+    tagline: 'Complete health and financial protection with premium benefits.',
+    bestFor: 'Families seeking maximum healthcare benefits, higher medical wallets, EMI protection, and cyber protection.',
     // badge: 'Our most popular',
     features: [
       { text: 'No Age Limit (For Wellness) &\n18-65 Years (For Wellness)', icon: '👥', included: true },

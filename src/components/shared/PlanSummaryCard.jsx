@@ -136,11 +136,12 @@ const PlanSummaryCard = ({ planDetails }) => {
 
       {/* View More Link */}
       <a
-        href="#"
+        href="#plan-details-table"
         className="text-[#0072F2] hover:underline text-base leading-[20px] font-normal inline-block px-5 mb-4"
         onClick={(e) => {
           e.preventDefault();
-          window.location.href = '/plans';
+          const el = document.getElementById('plan-details-table');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
         }}
       >
         View More....

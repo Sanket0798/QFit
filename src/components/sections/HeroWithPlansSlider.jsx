@@ -243,7 +243,7 @@ const HeroWithPlansSlider = () => {
             {[...QFIT_PLANS_DATA, ...QFIT_PLANS_DATA].map((plan, index) => (
               <div key={`${plan.name}-${index}`} className="px-0">
                 <div
-                  className={`${planColors[plan.name]} w-full h-[240px] rounded-t-3xl py-4 px-6 text-center border border-black/10`}
+                  className={`${planColors[plan.name]} w-full h-[310px] rounded-t-3xl py-4 px-6 text-center border border-black/10`}
                   style={{ borderBottom: 'transparent' }}
                 >
                   <div className="text-center">
@@ -252,13 +252,21 @@ const HeroWithPlansSlider = () => {
                     </h3>
                   </div>
 
-                  <div className="flex justify-center mb-5">
+                  <div className="flex justify-center mb-3">
                     <img
                       src={plan.icon}
                       alt={plan.name}
                       className="object-contain"
                     />
                   </div>
+
+                  {/* Tagline & Best For */}
+                  <p className="text-base leading-[20px] text-custom-dark-text font-normal mb-2 px-1">
+                    {plan.tagline}
+                  </p>
+                  <p className="text-sm leading-[18px] text-custom-dark-text/70 font-normal mb-4 px-1">
+                    <span className="font-semibold">Best For: </span>{plan.bestFor}
+                  </p>
 
                   <button
                     onClick={() => handlePlanClick(plan.name)}
@@ -288,13 +296,21 @@ const HeroWithPlansSlider = () => {
                 </h3>
               </div>
 
-              <div className="flex justify-center mb-5">
+              <div className="flex justify-center mb-3">
                 <img
                   src={plan.icon}
                   alt={plan.name}
                   className="object-contain w-20 h-20"
                 />
               </div>
+
+              {/* Tagline & Best For */}
+              <p className="text-base leading-[20px] text-custom-dark-text font-normal mb-2 px-1">
+                {plan.tagline}
+              </p>
+              <p className="text-sm leading-[18px] text-custom-dark-text/70 font-normal mb-4 px-1">
+                <span className="font-semibold">Best For: </span>{plan.bestFor}
+              </p>
 
               <button
                 onClick={() => handlePlanClick(plan.name)}

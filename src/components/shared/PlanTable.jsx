@@ -97,7 +97,7 @@ const PlanTable = ({ planDetails }) => {
     return () => ctx.revert();
   }, []);
   return (
-    <section ref={sectionRef} className="py-6 md:py-8 lg:py-10">
+    <section id="plan-details-table" ref={sectionRef} className="py-6 md:py-8 lg:py-10">
       <div className="max-w-[1370px] mx-auto">
         {/* Mobile Card View */}
         <div className="md:hidden px-[60px] space-y-4">

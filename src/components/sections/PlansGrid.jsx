@@ -22,6 +22,14 @@ const PlansGrid = () => {
     'QFit Max': '/plans/qfit-max',
   };
 
+  const checkoutRoutes = {
+    'QFit Kavach': '/checkout/qfit-kavach',
+    'QFit Super': '/checkout/qfit-super',
+    'QFit Lite': '/checkout/qfit-lite',
+    'QFit Essential': '/checkout/qfit-essential',
+    'QFit Max': '/checkout/qfit-max',
+  };
+
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Animate plan cards with stagger
@@ -67,24 +75,31 @@ const PlansGrid = () => {
           )}
 
           {/* Plan Header */}
-          <div className={`card-header-base ${headerBgColors[index]} pr-4 md:pr-[33px] pl-5 md:pl-[41px]`}>
-            <div className="flex items-start gap-4 md:gap-20">
+          <div className={`card-header-base relative ${headerBgColors[index]} pr-4 md:pr-[33px] pl-5 md:pl-[41px]`}>
+            <div className="flex items-center flex-1">
               <h3 className="plan-heading">
                 {plan.name}
               </h3>
-              <img
-                src={plan.icon}
-                alt={plan.name}
-                className="object-contain absolute left-[200px] md:left-64 top-[28px] md:top-9 w-10 md:w-auto"
-              />
             </div>
+            {/* Icon: pinned to bottom-center of header on mobile */}
+            <img
+              src={plan.icon}
+              alt={plan.name}
+              className="object-contain md:hidden absolute bottom-6 left-1/2 -translate-x-1/2 translate-y-1/2 w-14 mx-5 z-10"
+            />
+            {/* Icon absolutely positioned on desktop */}
+            <img
+              src={plan.icon}
+              alt={plan.name}
+              className="object-contain hidden md:block absolute left-64 top-9"
+            />
             <div className="bg-custom-purple font-bold text-lg md:text-3xl leading-[22px] md:leading-[35px] text-white rounded-full py-1 md:py-[6.5px] px-3 md:px-6">
               {plan.price}
             </div>
           </div>
 
           {/* Features List */}
-          <div className="space-y-[14px] md:space-y-5 mb-4 md:mb-[34px] card-content-spacing">
+          <div className="space-y-[14px] md:space-y-5 mb-4 md:mb-[34px] card-content-spacing pt-6 md:pt-0">
             {plan.features.slice(0, 11).map((feature, idx) => (
               <div key={idx} className="feature-item">
                 <div className="flex-shrink-0">
@@ -122,7 +137,8 @@ const PlansGrid = () => {
             className="text-[#0072F2] hover:underline text-base md:text-xl leading-[20px] md:leading-[26px] font-normal inline-block card-content-spacing"
             onClick={(e) => {
               e.preventDefault();
-              navigate(planRoutes[plan.name] || '/plans');
+              const route = checkoutRoutes[plan.name] || '/plans';
+              navigate(route, { state: { scrollToTable: true } });
             }}
           >
             View More....

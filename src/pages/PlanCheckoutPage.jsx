@@ -1,4 +1,5 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 import CheckoutHero from '../components/sections/CheckoutHero';
 import MembershipApplicationForm from '../components/sections/MembershipApplicationForm';
 import PlanTable from '../components/shared/PlanTable';
@@ -15,6 +16,17 @@ import {
 
 const PlanCheckoutPage = () => {
   const { planId } = useParams();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state?.scrollToTable) {
+      // Small delay to allow page to render
+      setTimeout(() => {
+        const el = document.getElementById('plan-details-table');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 300);
+    }
+  }, [location.state]);
 
   // Map plan IDs to plan details
   const planDetailsMap = {

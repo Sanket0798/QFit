@@ -12,8 +12,8 @@ const Navbar = () => {
   const dropdownRef = useRef(null);
 
   const navLinks = [
-    { 
-      name: 'Home', 
+    {
+      name: 'Home',
       hasDropdown: true,
       dropdownItems: [
         { name: 'About Us', id: 'about-us', homePath: '/' },
@@ -93,13 +93,13 @@ const Navbar = () => {
   const handleNavClick = (e, link) => {
     e.preventDefault();
     setIsOpen(false);
-    
+
     // If it's a path-based link, navigate to that path
     if (link.path) {
       navigate(link.path);
       return;
     }
-    
+
     // Otherwise, scroll to the section
     const element = document.getElementById(link.id);
     if (element) {
@@ -114,87 +114,87 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={`bg-white sticky top-0 z-50 rounded-3xl transition-shadow duration-300 max-w-full mx-3 mt-3 ${scrolled ? 'shadow-md' : 'shadow-sm'}`}>
+    <nav className={`bg-white sticky top-0 z-50 rounded-3xl transition-shadow duration-300 max-w-full mx-3 mt-3 ${scrolled ? 'shadow-card' : 'shadow-sm'}`}>
       <div className="flex justify-between items-center h-[60px] md:h-[72px] px-7 md:px-3 lg:pl-[88px] lg:pr-[62px]">
-          {/* Logo */}
-          <div className="flex-shrink-0">
-            <button
-              onClick={() => navigate('/')}
-              className="flex w-[122px] md:w-full items-center hover:opacity-80 transition-opacity cursor-pointer"
-            >
-              <img
-                src="/assets/logos/main-logo.png"
-                className='w-[146px]'
-                alt="RupeeQ Logo"
-                onError={(e) => {
-                  // Fallback to text if image not found
-                  e.target.style.display = 'none';
-                  e.target.nextSibling.style.display = 'block';
-                }}
-              />
-              <span className="text-2xl font-bold text-primary hidden">RupeeQ</span>
-            </button>
-          </div>
+        {/* Logo */}
+        <div className="flex-shrink-0">
+          <button
+            onClick={() => navigate('/')}
+            className="flex w-[122px] md:w-full items-center hover:opacity-80 transition-opacity cursor-pointer"
+          >
+            <img
+              src="/assets/logos/main-logo.png"
+              className='w-[146px]'
+              alt="RupeeQ Logo"
+              onError={(e) => {
+                // Fallback to text if image not found
+                e.target.style.display = 'none';
+                e.target.nextSibling.style.display = 'block';
+              }}
+            />
+            <span className="text-2xl font-bold text-primary hidden">RupeeQ</span>
+          </button>
+        </div>
 
-          <div className='flex flex-row space-x-[84px]'>
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8" ref={dropdownRef}>
-              {navLinks.map((link) => (
-                <div key={link.name} className="relative">
-                  {link.hasDropdown ? (
-                    <div>
-                      <button
-                        onClick={() => toggleDropdown(link.name)}
-                        className="text-neutral-700 hover:text-primary transition-colors duration-200 font-medium flex items-center gap-1"
-                      >
-                        {link.name}
-                        <ChevronDown 
-                          size={16} 
-                          className={`transition-transform duration-200 ${openDropdown === link.name ? 'rotate-180' : ''}`}
-                        />
-                      </button>
-                      
-                      {/* Dropdown Menu */}
-                      {openDropdown === link.name && (
-                        <div className="absolute top-full -left-36 mt-2 w-56 bg-white rounded-2xl shadow-lg border border-gray-100 py-2 z-50 animate-slide-up">
-                          {link.dropdownItems.map((item) => (
-                            <button
-                              key={item.path || item.id}
-                              onClick={() => handleDropdownItemClick(item)}
-                              className="w-full text-left px-4 py-3 text-neutral-700 hover:bg-purple-50 hover:text-primary transition-colors duration-200 font-medium"
-                            >
-                              {item.name}
-                            </button>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  ) : (
-                    <a
-                      href={link.path || `#${link.id}`}
-                      onClick={(e) => handleNavClick(e, link)}
-                      className="text-neutral-700 hover:text-primary transition-colors duration-200 font-medium"
+        <div className='flex flex-row space-x-[84px]'>
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-10" ref={dropdownRef}>
+            {navLinks.map((link) => (
+              <div key={link.name} className="relative">
+                {link.hasDropdown ? (
+                  <div>
+                    <button
+                      onClick={() => toggleDropdown(link.name)}
+                      className="text-[#555555] hover:text-primary transition-colors duration-200 font-normal text-base leading-[21px] flex items-center gap-1"
                     >
                       {link.name}
-                    </a>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
+                      <ChevronDown
+                        size={16}
+                        className={`transition-transform duration-200 ${openDropdown === link.name ? 'rotate-180' : ''}`}
+                      />
+                    </button>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-neutral-700 hover:text-primary transition-colors"
-              aria-label="Toggle menu"
-              aria-expanded={isOpen}
-            >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+                    {/* Dropdown Menu */}
+                    {openDropdown === link.name && (
+                      <div className="absolute top-full -left-36 mt-2 w-56 bg-white rounded-2xl shadow-lg border border-gray-100 py-2 z-50 animate-slide-up">
+                        {link.dropdownItems.map((item) => (
+                          <button
+                            key={item.path || item.id}
+                            onClick={() => handleDropdownItemClick(item)}
+                            className="w-full text-left px-4 py-3 text-[#555555] hover:bg-purple-50 hover:text-primary transition-colors duration-200 font-normal text-base leading-[21px]"
+                          >
+                            {item.name}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <a
+                    href={link.path || `#${link.id}`}
+                    onClick={(e) => handleNavClick(e, link)}
+                    className="text-[#555555] hover:text-primary transition-colors duration-200 font-normal text-base leading-[21px]"
+                  >
+                    {link.name}
+                  </a>
+                )}
+              </div>
+            ))}
           </div>
         </div>
+
+        {/* Mobile menu button */}
+        <div className="md:hidden flex items-center">
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="text-neutral-700 hover:text-primary transition-colors"
+            aria-label="Toggle menu"
+            aria-expanded={isOpen}
+          >
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+      </div>
 
       {/* Mobile Navigation */}
       {isOpen && (
@@ -209,8 +209,8 @@ const Navbar = () => {
                       className="w-full flex items-center justify-between px-3 py-2 text-neutral-700 hover:text-primary hover:bg-neutral-50 rounded-md transition-colors font-medium"
                     >
                       {link.name}
-                      <ChevronDown 
-                        size={16} 
+                      <ChevronDown
+                        size={16}
                         className={`transition-transform duration-200 ${openDropdown === link.name ? 'rotate-180' : ''}`}
                       />
                     </button>

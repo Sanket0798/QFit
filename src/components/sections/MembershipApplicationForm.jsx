@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { Button } from '../ui';
+import { Button, DatePicker } from '../ui';
 
 const MembershipApplicationForm = ({ planName, price, monthlyPrice }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
   const workersImageRef = useRef(null);
   const [formData, setFormData] = useState({
     // Step 1 - User Details
@@ -194,14 +195,11 @@ const MembershipApplicationForm = ({ planName, price, monthlyPrice }) => {
                         <label className="block font-normal text-sm leading-[19px] text-custom-dark-text mb-1">
                           Date Of Birth
                         </label>
-                        <input
-                          type="text"
-                          name="dob"
+                        <DatePicker
                           value={formData.dob}
-                          onChange={handleChange}
-                          required
-                          className="w-full px-4 md:px-4 py-3 md:py-3 border border-[#D0D0D0] rounded-full focus:outline-none focus:ring-1 focus:ring-[#0072F2] bg-[#F8FCFF] placeholder:text-sm placeholder:text-[#58626C] placeholder:font-normal text-sm"
+                          onChange={(val) => setFormData({ ...formData, dob: val })}
                           placeholder="DD/MM/YYYY"
+                          maxDate={new Date()}
                         />
                       </div>
 
@@ -304,14 +302,11 @@ const MembershipApplicationForm = ({ planName, price, monthlyPrice }) => {
                         <label className="block font-normal text-xs md:text-sm leading-[16px] md:leading-[19px] text-custom-dark-text mb-1">
                           Date Of Birth
                         </label>
-                        <input
-                          type="text"
-                          name="nomineeDob"
+                        <DatePicker
                           value={formData.nomineeDob}
-                          onChange={handleChange}
-                          required
-                          className="w-full px-3 md:px-4 py-2 md:py-3 border border-[#D0D0D0] rounded-full focus:outline-none focus:ring-1 focus:ring-[#0072F2] bg-[#F8FCFF] placeholder:text-xs md:placeholder:text-sm placeholder:text-[#58626C] placeholder:font-normal text-sm"
+                          onChange={(val) => setFormData({ ...formData, nomineeDob: val })}
                           placeholder="DD/MM/YYYY"
+                          maxDate={new Date()}
                         />
                       </div>
 
@@ -357,6 +352,23 @@ const MembershipApplicationForm = ({ planName, price, monthlyPrice }) => {
 
                     </div>
 
+                    {/* Terms & Conditions Checkbox */}
+                    <div className="mt-5 flex items-start gap-2 px-1">
+                      <input
+                        type="checkbox"
+                        id="termsCheckbox"
+                        checked={agreedToTerms}
+                        onChange={(e) => setAgreedToTerms(e.target.checked)}
+                        className="mt-0.5 w-4 h-4 accent-custom-purple cursor-pointer flex-shrink-0"
+                      />
+                      <label htmlFor="termsCheckbox" className="text-sm leading-[19px] text-custom-dark-text font-normal cursor-pointer">
+                        I agree to the{' '}
+                        <a href="/terms-conditions" target="_blank" rel="noopener noreferrer" className="text-[#0072F2] hover:underline font-medium">
+                          Terms and Conditions
+                        </a>
+                      </label>
+                    </div>
+
                     {/* Buttons */}
                     <div className="mt-6 md:mt-9 flex flex-col md:flex-row gap-3 md:gap-4">
                       <Button
@@ -370,7 +382,8 @@ const MembershipApplicationForm = ({ planName, price, monthlyPrice }) => {
                       <Button
                         type="submit"
                         variant="custom"
-                        className="bg-custom-purple text-white font-bold text-base md:text-lg py-2 md:py-[9px] px-5 md:px-[22px] rounded-full hover:bg-purple-700 transition-colors shadow-card w-full md:w-auto"
+                        disabled={!agreedToTerms}
+                        className={`font-bold text-base md:text-lg py-2 md:py-[9px] px-5 md:px-[22px] rounded-full transition-colors shadow-card w-full md:w-auto ${agreedToTerms ? 'bg-custom-purple text-white hover:bg-purple-700' : 'bg-purple-300 text-white cursor-not-allowed'}`}
                       >
                         Submit
                       </Button>
@@ -379,11 +392,7 @@ const MembershipApplicationForm = ({ planName, price, monthlyPrice }) => {
                 )}
               </div>
 
-              {/* Credit Score Analysis - Desktop Only */}
-              <div className="hidden md:flex bg-[#ECE4FF] rounded-3xl p-7 items-center justify-between gap-0 shadow-card">
-                <h3 className="text-3xl leading-[35px] font-bold text-[#0072F2]">Credit Score</h3>
-                <span className="text-2xl leading-[34px] font-medium text-[#0072F2]">Analysis</span>
-              </div>
+
             </div>
           </div>
 
