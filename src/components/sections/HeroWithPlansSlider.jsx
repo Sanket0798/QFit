@@ -243,7 +243,7 @@ const HeroWithPlansSlider = () => {
             {[...QFIT_PLANS_DATA, ...QFIT_PLANS_DATA].map((plan, index) => (
               <div key={`${plan.name}-${index}`} className="px-0">
                 <div
-                  className={`${planColors[plan.name]} w-full h-[310px] rounded-t-3xl py-4 px-6 text-center border border-black/10`}
+                  className={`${planColors[plan.name]} w-full h-[370px] flex flex-col items-center justify-between rounded-t-3xl py-4 px-6 text-center border border-black/10`}
                   style={{ borderBottom: 'transparent' }}
                 >
                   <div className="text-center">

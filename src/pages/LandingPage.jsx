@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import {
   HeroWithPlansSlider,
   AboutUs,
@@ -6,6 +8,15 @@ import {
 } from '../components/sections';
 
 const LandingPage = () => {
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    if (hash) {
+      const el = document.querySelector(hash);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [hash]);
+
   return (
     <>
       <section id="hero">

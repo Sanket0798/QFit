@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Button } from '../ui';
@@ -8,6 +9,7 @@ import { QFIT_PLANS_BENEFITS } from '../../constants';
 gsap.registerPlugin(ScrollTrigger);
 
 const PlansBenefits = () => {
+  const navigate = useNavigate();
   const sectionRef = useRef(null);
   const buttonRef = useRef(null);
   const titleRef = useRef(null);
@@ -63,14 +65,14 @@ const PlansBenefits = () => {
     return () => ctx.revert();
   }, []);
   return (
-    <div ref={sectionRef} className="w-full">
+    <div ref={sectionRef} className="w-full mt-10 md:mt-0">
       {/* Title with button */}
       <div className="mb-6 md:mb-8 flex flex-col items-center">
         <Button
           ref={buttonRef}
           variant="custom"
-          className="text-base md:text-lg !font-normal leading-[20px] text-white gap-2 rounded-full bg-custom-purple mb-6 md:mb-[47px]"
-
+          onClick={() => navigate('/#why-choose-us')}
+          className="text-base md:text-lg !font-normal leading-[20px] text-white gap-2 rounded-full bg-custom-purple mb-6 md:mb-[47px] hover:bg-purple-700 transition-colors"
         >
           Why Choose Us
           <RightArrowIcon color='white' />

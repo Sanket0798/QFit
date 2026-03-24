@@ -1,6 +1,8 @@
+import { useNavigate } from 'react-router-dom';
 import { RightArrowIcon } from '../common/SvgIcons';
 
 const WhyChooseUs = () => {
+  const navigate = useNavigate();
   const features = [
     {
       icon: '/assets/icons/Care.svg',
@@ -30,7 +32,10 @@ const WhyChooseUs = () => {
       <div className="relative max-w-[1370px] mx-auto bg-transparent md:bg-white md:rounded-[25px] md:px-6 md:pt-6 md:pb-[78px] md:shadow-card-hover">
         {/* Header */}
         <div className="flex flex-col items-center justify-center text-center mb-8 md:mb-12">
-          <button className="font-normal rounded-full hidden md:flex items-center gap-2 text-[17px] leading-[23px] bg-custom-purple text-white py-3 px-6 transition-colors">
+          <button
+            onClick={() => navigate('/#why-choose-us')}
+            className="font-normal rounded-full hidden md:flex items-center gap-2 text-[17px] leading-[23px] bg-custom-purple text-white py-3 px-6 transition-colors hover:bg-purple-700"
+          >
             Why Choose Us
             <RightArrowIcon color="#ffffff" />
           </button>

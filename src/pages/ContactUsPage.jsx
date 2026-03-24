@@ -38,7 +38,18 @@ const fadeUp = {
 const ContactUsPage = () => {
   const heroRef = useRef(null);
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
+  const [errors, setErrors] = useState({ email: '', phone: '' });
   const [submitted, setSubmitted] = useState(false);
+
+  const validateField = (name, value) => {
+    if (name === 'email') {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ? '' : 'Enter a valid email address';
+    }
+    if (name === 'phone') {
+      return /^[6-9]\d{9}$/.test(value.replace(/\s/g, '')) ? '' : 'Enter a valid 10-digit mobile number';
+    }
+    return '';
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -52,7 +63,15 @@ const ContactUsPage = () => {
   }, []);
 
   const handleChange = (e) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+    // Phone: only allow digits, max 10
+    if (name === 'phone' && /[^0-9]/.test(value)) return;
+    // Name: only allow letters and spaces
+    if (name === 'name' && /[^a-zA-Z\s]/.test(value)) return;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (errors[name] !== undefined) {
+      setErrors((prev) => ({ ...prev, [name]: validateField(name, value) }));
+    }
   };
 
   const handleSubmit = (e) => {
@@ -129,8 +148,8 @@ const ContactUsPage = () => {
                   viewport={{ once: true, amount: 0.2 }}
                   variants={fadeUp}
                 >
-                  <div className="w-12 h-12 rounded-full bg-[#EDE8F9] flex items-center justify-center shrink-0">
-                    <img src={item.icon} alt={item.label} className="w-6 h-6" />
+                  <div className="w-20 h-20 rounded-full bg-[#EDE8F9] flex items-center justify-center shrink-0">
+                    <img src={item.icon} alt={item.label} className="" />
                   </div>
                   <div>
                     <p className="text-xs font-semibold text-custom-purple uppercase tracking-wider mb-1">{item.label}</p>
@@ -139,7 +158,7 @@ const ContactUsPage = () => {
                         {item.value}
                       </a>
                     ) : (
-                      <p className="text-[#4B5768] text-sm md:text-base leading-relaxed">{item.value}</p>
+                      <p className="text-[#4B5768] text-sm md:text-base leading-relaxed mr-10">{item.value}</p>
                     )}
                   </div>
                 </motion.div>
@@ -197,8 +216,9 @@ const ContactUsPage = () => {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="you@example.com"
-                    className="w-full border border-[#E0D9F5] rounded-xl px-4 py-3 text-sm text-custom-dark-text placeholder-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-custom-purple transition"
+                    className={`w-full border rounded-xl px-4 py-3 text-sm text-custom-dark-text placeholder-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-custom-purple transition ${errors.email ? 'border-red-400' : 'border-[#E0D9F5]'}`}
                   />
+                  {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
                 </div>
 
                 <div>
@@ -207,11 +227,13 @@ const ContactUsPage = () => {
                     id="phone"
                     name="phone"
                     type="tel"
+                    maxLength={10}
                     value={formData.phone}
                     onChange={handleChange}
-                    placeholder="+91 XXXXX XXXXX"
-                    className="w-full border border-[#E0D9F5] rounded-xl px-4 py-3 text-sm text-custom-dark-text placeholder-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-custom-purple transition"
+                    placeholder="XXXXXXXXXX"
+                    className={`w-full border rounded-xl px-4 py-3 text-sm text-custom-dark-text placeholder-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-custom-purple transition ${errors.phone ? 'border-red-400' : 'border-[#E0D9F5]'}`}
                   />
+                  {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
                 </div>
 
                 <div>

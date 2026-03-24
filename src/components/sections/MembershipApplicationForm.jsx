@@ -25,11 +25,40 @@ const MembershipApplicationForm = ({ planName, price, monthlyPrice }) => {
     nomineeRelationship: '',
   });
 
+  const [errors, setErrors] = useState({});
+
+  const validateField = (name, value) => {
+    if (name === 'email') {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ? '' : 'Enter a valid email address';
+    }
+    if (name === 'contactNumber') {
+      return /^[6-9]\d{9}$/.test(value.replace(/\s/g, '')) ? '' : 'Enter a valid 10-digit mobile number';
+    }
+    if (name === 'fullName' || name === 'nomineeName') {
+      return /^[a-zA-Z\s]{2,}$/.test(value.trim()) ? '' : 'Enter a valid name (letters only)';
+    }
+    if (name === 'membershipName') {
+      return /^[a-zA-Z\s]{2,}$/.test(value.trim()) ? '' : 'Enter a valid membership name (letters only)';
+    }
+    if (name === 'userDesignation') {
+      return /^[a-zA-Z\s]{2,}$/.test(value.trim()) ? '' : 'Enter a valid designation (letters only)';
+    }
+    if (name === 'annualIncome') {
+      return /^\d+$/.test(value.trim()) ? '' : 'Enter a valid annual income (numbers only)';
+    }
+    return '';
+  };
+
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+    // Block non-digits for phone
+    if (name === 'contactNumber' && /[^0-9]/.test(value)) return;
+    // Block non-letters for name fields
+    if ((name === 'fullName' || name === 'nomineeName' || name === 'membershipName' || name === 'userDesignation') && /[^a-zA-Z\s]/.test(value)) return;
+    // Block non-digits for annual income
+    if (name === 'annualIncome' && /[^0-9]/.test(value)) return;
+    setFormData({ ...formData, [name]: value });
+    setErrors((prev) => ({ ...prev, [name]: validateField(name, value) }));
   };
 
   const handleNext = (e) => {
@@ -137,9 +166,10 @@ const MembershipApplicationForm = ({ planName, price, monthlyPrice }) => {
                           value={formData.fullName}
                           onChange={handleChange}
                           required
-                          className="w-full px-4 md:px-4 py-3 md:py-3 border border-[#D0D0D0] rounded-full focus:outline-none focus:ring-1 focus:ring-[#0072F2] bg-[#F8FCFF] placeholder:text-sm placeholder:text-[#58626C] placeholder:font-normal text-sm"
+                          className={`w-full px-4 py-3 border rounded-full focus:outline-none focus:ring-1 focus:ring-[#0072F2] bg-[#F8FCFF] placeholder:text-sm placeholder:text-[#58626C] text-sm ${errors.fullName ? 'border-red-400' : 'border-[#D0D0D0]'}`}
                           placeholder="Enter Your Name"
                         />
+                        {errors.fullName && <p className="text-red-500 text-xs mt-1 pl-3">{errors.fullName}</p>}
                       </div>
 
                       {/* Membership Name */}
@@ -153,9 +183,10 @@ const MembershipApplicationForm = ({ planName, price, monthlyPrice }) => {
                           value={formData.membershipName}
                           onChange={handleChange}
                           required
-                          className="w-full px-4 md:px-4 py-3 md:py-3 border border-[#D0D0D0] rounded-full focus:outline-none focus:ring-1 focus:ring-[#0072F2] bg-[#F8FCFF] placeholder:text-sm placeholder:text-[#58626C] placeholder:font-normal text-sm"
+                          className={`w-full px-4 py-3 border rounded-full focus:outline-none focus:ring-1 focus:ring-[#0072F2] bg-[#F8FCFF] placeholder:text-sm placeholder:text-[#58626C] placeholder:font-normal text-sm ${errors.membershipName ? 'border-red-400' : 'border-[#D0D0D0]'}`}
                           placeholder="Enter Your Healthcare Membership Name"
                         />
+                        {errors.membershipName && <p className="text-red-500 text-xs mt-1 pl-3">{errors.membershipName}</p>}
                       </div>
 
                       {/* Email ID */}
@@ -169,9 +200,10 @@ const MembershipApplicationForm = ({ planName, price, monthlyPrice }) => {
                           value={formData.email}
                           onChange={handleChange}
                           required
-                          className="w-full px-4 md:px-4 py-3 md:py-3 border border-[#D0D0D0] rounded-full focus:outline-none focus:ring-1 focus:ring-[#0072F2] bg-[#F8FCFF] placeholder:text-sm placeholder:text-[#58626C] placeholder:font-normal text-sm"
+                          className={`w-full px-4 py-3 border rounded-full focus:outline-none focus:ring-1 focus:ring-[#0072F2] bg-[#F8FCFF] placeholder:text-sm placeholder:text-[#58626C] text-sm ${errors.email ? 'border-red-400' : 'border-[#D0D0D0]'}`}
                           placeholder="Enter Your Email ID"
                         />
+                        {errors.email && <p className="text-red-500 text-xs mt-1 pl-3">{errors.email}</p>}
                       </div>
 
                       {/* Contact Number */}
@@ -182,12 +214,14 @@ const MembershipApplicationForm = ({ planName, price, monthlyPrice }) => {
                         <input
                           type="tel"
                           name="contactNumber"
+                          maxLength={10}
                           value={formData.contactNumber}
                           onChange={handleChange}
                           required
-                          className="w-full px-4 md:px-4 py-3 md:py-3 border border-[#D0D0D0] rounded-full focus:outline-none focus:ring-1 focus:ring-[#0072F2] bg-[#F8FCFF] placeholder:text-sm placeholder:text-[#58626C] placeholder:font-normal text-sm"
-                          placeholder="Enter Your Contact Number"
+                          className={`w-full px-4 py-3 border rounded-full focus:outline-none focus:ring-1 focus:ring-[#0072F2] bg-[#F8FCFF] placeholder:text-sm placeholder:text-[#58626C] text-sm ${errors.contactNumber ? 'border-red-400' : 'border-[#D0D0D0]'}`}
+                          placeholder="Enter Your 10-digit Number"
                         />
+                        {errors.contactNumber && <p className="text-red-500 text-xs mt-1 pl-3">{errors.contactNumber}</p>}
                       </div>
 
                       {/* Date of Birth */}
@@ -238,10 +272,10 @@ const MembershipApplicationForm = ({ planName, price, monthlyPrice }) => {
                   // Step 2: Nominee Details
                   <form onSubmit={handleSubmit} className="">
                     {/* User Designation and Annual Income */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-3 px-8 md:px-0 mb-6">
                       {/* User Designation */}
                       <div>
-                        <label className="block font-normal text-xs md:text-sm leading-[16px] md:leading-[19px] text-custom-dark-text mb-1">
+                        <label className="block font-normal text-sm leading-[19px] text-custom-dark-text mb-1">
                           User Designation
                         </label>
                         <input
@@ -250,14 +284,15 @@ const MembershipApplicationForm = ({ planName, price, monthlyPrice }) => {
                           value={formData.userDesignation}
                           onChange={handleChange}
                           required
-                          className="w-full px-3 md:px-4 py-2 md:py-3 border border-[#D0D0D0] rounded-full focus:outline-none focus:ring-1 focus:ring-[#0072F2] bg-[#F8FCFF] placeholder:text-xs md:placeholder:text-sm placeholder:text-[#58626C] placeholder:font-normal text-sm"
+                          className={`w-full px-4 py-3 border rounded-full focus:outline-none focus:ring-1 focus:ring-[#0072F2] bg-[#F8FCFF] placeholder:text-sm placeholder:text-[#58626C] placeholder:font-normal text-sm ${errors.userDesignation ? 'border-red-400' : 'border-[#D0D0D0]'}`}
                           placeholder="Enter Your Designation"
                         />
+                        {errors.userDesignation && <p className="text-red-500 text-xs mt-1 pl-3">{errors.userDesignation}</p>}
                       </div>
 
                       {/* Annual Income */}
                       <div>
-                        <label className="block font-normal text-xs md:text-sm leading-[16px] md:leading-[19px] text-custom-dark-text mb-1">
+                        <label className="block font-normal text-sm leading-[19px] text-custom-dark-text mb-1">
                           Annual Income
                         </label>
                         <input
@@ -266,24 +301,25 @@ const MembershipApplicationForm = ({ planName, price, monthlyPrice }) => {
                           value={formData.annualIncome}
                           onChange={handleChange}
                           required
-                          className="w-full px-3 md:px-4 py-2 md:py-3 border border-[#D0D0D0] rounded-full focus:outline-none focus:ring-1 focus:ring-[#0072F2] bg-[#F8FCFF] placeholder:text-xs md:placeholder:text-sm placeholder:text-[#58626C] placeholder:font-normal text-sm"
+                          className={`w-full px-4 py-3 border rounded-full focus:outline-none focus:ring-1 focus:ring-[#0072F2] bg-[#F8FCFF] placeholder:text-sm placeholder:text-[#58626C] placeholder:font-normal text-sm ${errors.annualIncome ? 'border-red-400' : 'border-[#D0D0D0]'}`}
                           placeholder="Enter Your Annual Income"
                         />
+                        {errors.annualIncome && <p className="text-red-500 text-xs mt-1 pl-3">{errors.annualIncome}</p>}
                       </div>
                     </div>
 
                     {/* Nominee Details Section */}
-                    <div className="card-base p-4 md:p-6 mb-6">
-                      <h3 className="text-lg md:text-2xl font-bold text-custom-dark-text mb-0">
+                    <div className="card-base rounded-full bg-[#FFE3E3] p-4 md:p-4 mb-6">
+                      <h3 className="text-lg md:text-lg font-bold md:leading-[22px] text-[#4B5768] mb-0">
                         Nominee Details
                       </h3>
                     </div>
 
                     {/* Nominee Form Fields */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-3 px-8 md:px-0">
                       {/* Nominee Full Name */}
                       <div>
-                        <label className="block font-normal text-xs md:text-sm leading-[16px] md:leading-[19px] text-custom-dark-text mb-1">
+                        <label className="block font-normal text-sm leading-[19px] text-custom-dark-text mb-1">
                           Full Name
                         </label>
                         <input
@@ -292,27 +328,30 @@ const MembershipApplicationForm = ({ planName, price, monthlyPrice }) => {
                           value={formData.nomineeName}
                           onChange={handleChange}
                           required
-                          className="w-full px-3 md:px-4 py-2 md:py-3 border border-[#D0D0D0] rounded-full focus:outline-none focus:ring-1 focus:ring-[#0072F2] bg-[#F8FCFF] placeholder:text-xs md:placeholder:text-sm placeholder:text-[#58626C] placeholder:font-normal text-sm"
-                          placeholder="Enter Your Name"
+                          className={`w-full px-4 py-3 border rounded-full focus:outline-none focus:ring-1 focus:ring-[#0072F2] bg-[#F8FCFF] placeholder:text-sm placeholder:text-[#58626C] text-sm ${errors.nomineeName ? 'border-red-400' : 'border-[#D0D0D0]'}`}
+                          placeholder="Enter Nominee Name"
                         />
+                        {errors.nomineeName && <p className="text-red-500 text-xs mt-1 pl-3">{errors.nomineeName}</p>}
                       </div>
 
                       {/* Nominee Date of Birth */}
                       <div>
-                        <label className="block font-normal text-xs md:text-sm leading-[16px] md:leading-[19px] text-custom-dark-text mb-1">
+                        <label className="block font-normal text-sm leading-[19px] text-custom-dark-text mb-1">
                           Date Of Birth
                         </label>
-                        <DatePicker
-                          value={formData.nomineeDob}
-                          onChange={(val) => setFormData({ ...formData, nomineeDob: val })}
-                          placeholder="DD/MM/YYYY"
-                          maxDate={new Date()}
-                        />
+                        <div className="w-full">
+                          <DatePicker
+                            value={formData.nomineeDob}
+                            onChange={(val) => setFormData({ ...formData, nomineeDob: val })}
+                            placeholder="DD/MM/YYYY"
+                            maxDate={new Date()}
+                          />
+                        </div>
                       </div>
 
                       {/* Nominee Gender */}
                       <div>
-                        <label className="block font-normal text-xs md:text-sm leading-[16px] md:leading-[19px] text-custom-dark-text mb-1">
+                        <label className="block font-normal text-sm leading-[19px] text-custom-dark-text mb-1">
                           Gender
                         </label>
                         <select
@@ -320,7 +359,7 @@ const MembershipApplicationForm = ({ planName, price, monthlyPrice }) => {
                           value={formData.nomineeGender}
                           onChange={handleChange}
                           required
-                          className="w-full px-3 md:px-4 py-2 md:py-3 border border-[#D0D0D0] rounded-full focus:outline-none focus:ring-1 focus:ring-[#0072F2] bg-[#F8FCFF] text-[#58626C] text-xs md:text-sm"
+                          className="w-full px-4 py-3 border border-[#D0D0D0] rounded-full focus:outline-none focus:ring-1 focus:ring-[#0072F2] bg-[#F8FCFF] text-[#58626C] text-sm"
                         >
                           <option value="">Select Your Gender</option>
                           <option value="male">Male</option>
@@ -331,7 +370,7 @@ const MembershipApplicationForm = ({ planName, price, monthlyPrice }) => {
 
                       {/* Nominee Relationship */}
                       <div>
-                        <label className="block font-normal text-xs md:text-sm leading-[16px] md:leading-[19px] text-custom-dark-text mb-1">
+                        <label className="block font-normal text-sm leading-[19px] text-custom-dark-text mb-1">
                           Nominee Relationship
                         </label>
                         <select
@@ -339,7 +378,7 @@ const MembershipApplicationForm = ({ planName, price, monthlyPrice }) => {
                           value={formData.nomineeRelationship}
                           onChange={handleChange}
                           required
-                          className="w-full px-3 md:px-4 py-2 md:py-3 border border-[#D0D0D0] rounded-full focus:outline-none focus:ring-1 focus:ring-[#0072F2] bg-[#F8FCFF] text-[#58626C] text-xs md:text-sm"
+                          className="w-full px-4 py-3 border border-[#D0D0D0] rounded-full focus:outline-none focus:ring-1 focus:ring-[#0072F2] bg-[#F8FCFF] text-[#58626C] text-sm"
                         >
                           <option value="">Select Your Nominee Relationship</option>
                           <option value="spouse">Spouse</option>
@@ -349,17 +388,16 @@ const MembershipApplicationForm = ({ planName, price, monthlyPrice }) => {
                           <option value="other">Other</option>
                         </select>
                       </div>
-
                     </div>
 
                     {/* Terms & Conditions Checkbox */}
-                    <div className="mt-5 flex items-start gap-2 px-1">
+                    <div className="mt-5 flex items-center gap-2 px-8 md:px-1">
                       <input
                         type="checkbox"
                         id="termsCheckbox"
                         checked={agreedToTerms}
                         onChange={(e) => setAgreedToTerms(e.target.checked)}
-                        className="mt-0.5 w-4 h-4 accent-custom-purple cursor-pointer flex-shrink-0"
+                        className="w-4 h-4 accent-custom-purple cursor-pointer flex-shrink-0"
                       />
                       <label htmlFor="termsCheckbox" className="text-sm leading-[19px] text-custom-dark-text font-normal cursor-pointer">
                         I agree to the{' '}
@@ -370,7 +408,7 @@ const MembershipApplicationForm = ({ planName, price, monthlyPrice }) => {
                     </div>
 
                     {/* Buttons */}
-                    <div className="mt-6 md:mt-9 flex flex-col md:flex-row gap-3 md:gap-4">
+                    <div className="mt-6 pb-7 md:pb-0 md:mt-7 px-8 md:px-0 flex flex-row gap-3 md:gap-4">
                       <Button
                         type="button"
                         variant="custom"
@@ -423,11 +461,11 @@ const MembershipApplicationForm = ({ planName, price, monthlyPrice }) => {
       {/* Success Modal */}
       {showSuccessModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 px-4">
-          <div className="bg-white rounded-2xl md:rounded-3xl p-8 md:p-12 max-w-md mx-4 shadow-card text-center">
+          <div className="bg-white rounded-2xl md:rounded-3xl p-8 md:p-10 max-w-md mx-4 shadow-card text-center">
             {/* Success Icon */}
             <div className="mb-4 md:mb-6 flex justify-center">
               <div className="w-16 md:w-20 h-16 md:h-20 bg-green-100 rounded-full flex items-center justify-center">
-                <svg className="w-10 md:w-12 h-10 md:h-12 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-10 md:w-11 h-10 md:h-11 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
                 </svg>
               </div>

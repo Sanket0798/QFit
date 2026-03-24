@@ -92,11 +92,7 @@ const PlansHero = () => {
         </h1>
         <p ref={subtitleRef} className="font-normal text-sm md:text-xl leading-[19px] md:leading-[26px] text-[#4B5768] ">{subtitle}</p>
 
-        {/* Mobile-only Credit Score Button */}
-        <button className="md:hidden mt-6 w-full bg-custom-purple text-white font-bold text-base leading-[22px] py-3.5 px-6 rounded-full flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
-          Check Free Credit Score
-          <RightUpArrowIcon />
-        </button>
+
 
         {/* Mobile-only Health Priority Section */}
         <div ref={titleRef} className="md:hidden mt-8 flex items-center justify-center gap-3">
